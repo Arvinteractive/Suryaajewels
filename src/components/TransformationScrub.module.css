@@ -1,0 +1,94 @@
+.section {
+  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.stage {
+  position: relative;
+  height: 56vh;
+  min-height: 340px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+}
+
+.pane,
+.paneAfter {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.pane {
+  background: var(--color-surface);
+  color: var(--color-text);
+}
+
+.paneAfter {
+  background: var(--color-ink-deep);
+  color: var(--color-light);
+  will-change: clip-path;
+}
+
+.label,
+.labelAfter {
+  position: absolute;
+  top: 24px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.label {
+  left: 24px;
+  color: var(--color-text-secondary);
+}
+
+.labelAfter {
+  right: 24px;
+  color: rgba(244, 245, 241, 0.7);
+}
+
+.word {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 9vw, 120px);
+  font-weight: 500;
+  padding: 0 24px;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.wordAfter {
+  composes: word;
+  color: var(--color-gold-light);
+}
+
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--color-gold);
+  pointer-events: none;
+  transform: translateX(-1px);
+}
+
+.handleKnob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--color-gold);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 6px rgba(176, 141, 69, 0.18);
+}

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; background: #E9ECE5; }
+    * { box-sizing: border-box; }
+    .om-scrollbar-hide::-webkit-scrollbar { display: none; }
+  </style>
+</helmet>
+
+<div style="font-family: 'Jost', sans-serif; background: #E9ECE5; color: #29302B; overflow-x: hidden; width: 100%;">
+
+  <!-- NAV -->
+  <sc-if value="{{ navSolid }}" hint-placeholder-val="{{ false }}">
+    <nav style="position: sticky; top: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: clamp(16px,2vw,24px) clamp(24px,5vw,64px); background: #E9ECE5; border-bottom: 1px solid #C8CEC5;">
+      <div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: clamp(22px,2.4vw,28px); font-weight: 600; letter-spacing: 0.08em;">SURYAA</div>
+        <div style="font-size: 10px; letter-spacing: 0.28em; color: #727A72; margin-top: 2px;">JEWELS CRAFT</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: clamp(20px,3vw,40px); flex-wrap: wrap;">
+        <a href="#craft" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Craft</a>
+        <a href="#heritage" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Heritage</a>
+        <a href="#collections" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Collections</a>
+        <a href="#visit" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Visit</a>
+        <a href="#visit" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #29302B; text-decoration: none; border: 1px solid #29302B; padding: 10px 22px; white-space: nowrap;" style-hover="background: #29302B; color: #F4F5F1;">Book a Visit</a>
+      </div>
+    </nav>
+  </sc-if>
+  <sc-if value="{{ navTransparent }}" hint-placeholder-val="{{ true }}">
+    <nav style="position: absolute; top: 0; left: 0; right: 0; z-index: 20; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; padding: clamp(16px,2vw,28px) clamp(24px,5vw,64px);">
+      <div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: clamp(22px,2.4vw,28px); font-weight: 600; letter-spacing: 0.08em; color: #F4F5F1;">SURYAA</div>
+        <div style="font-size: 10px; letter-spacing: 0.28em; color: #F4F5F1; opacity: 0.75; margin-top: 2px;">JEWELS CRAFT</div>
+      </div>
+      <div style="display: flex; align-items: center; gap: clamp(20px,3vw,40px); flex-wrap: wrap;">
+        <a href="#craft" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #F4F5F1; text-decoration: none; opacity: 0.85;" style-hover="opacity: 1;">Craft</a>
+        <a href="#heritage" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #F4F5F1; text-decoration: none; opacity: 0.85;" style-hover="opacity: 1;">Heritage</a>
+        <a href="#collections" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #F4F5F1; text-decoration: none; opacity: 0.85;" style-hover="opacity: 1;">Collections</a>
+        <a href="#visit" style="font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; color: #F4F5F1; text-decoration: none; opacity: 0.85;" style-hover="opacity: 1;">Visit</a>
+        <a href="#visit" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: #F4F5F1; text-decoration: none; border: 1px solid #F4F5F1; padding: 10px 22px; white-space: nowrap;" style-hover="background: #F4F5F1; color: #29302B;">Book a Visit</a>
+      </div>
+    </nav>
+  </sc-if>
+
+  <!-- HERO -->
+  <sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ true }}">
+    <section id="craft" style="display: flex; flex-wrap: wrap; align-items: stretch; padding-top: 84px;">
+      <div style="flex: 1 1 440px; display: flex; flex-direction: column; justify-content: center; gap: 24px; padding: clamp(40px,6vw,96px) clamp(24px,5vw,64px);">
+        <div style="font-size: 12px; letter-spacing: 0.24em; color: #727A72; text-transform: uppercase;">Suryaa Jewels Craft</div>
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(38px,5.2vw,68px); line-height: 1.08; margin: 0; text-wrap: pretty;">Handcrafted in Gold.<br>Rooted in Heritage.</h1>
+        <p style="font-size: clamp(15px,1.3vw,17px); line-height: 1.7; color: #727A72; max-width: 480px; margin: 0; text-wrap: pretty;">Suryaa Jewels Craft is a family atelier carrying forward a tradition of handmade gold jewelry — one piece, one goldsmith, one sitting at a time.</p>
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-top: 8px;">
+          <a href="#collections" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; background: #29302B; color: #F4F5F1; padding: 15px 32px; border: 1px solid #29302B;" style-hover="background: #454f47;">See Our Craft</a>
+          <a href="#heritage" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; color: #29302B; padding: 15px 32px; border: 1px solid #29302B;" style-hover="background: #DDE1D9;">Our Story</a>
+        </div>
+        <div style="display: flex; gap: 12px; margin-top: 20px;">
+          <img src="uploads/Gold_bracelet_on_marble_slab_202608291242.jpeg" alt="Gold bracelet detail" style="width: 72px; height: 72px; flex-shrink: 0; object-fit: cover; border: 1px solid #C8CEC5;" />
+          <img src="uploads/Gold_cuff_on_slate_tile_202608291242.jpeg" alt="Gold cuff detail" style="width: 72px; height: 72px; flex-shrink: 0; object-fit: cover; border: 1px solid #C8CEC5;" />
+        </div>
+      </div>
+      <div style="flex: 1 1 440px; min-height: 480px; border-left: 1px solid #C8CEC5; overflow: hidden;">
+        <img src="uploads/Gold_necklace_draped_on_sandstone_202608291242.jpeg" alt="Gold necklace draped on sandstone" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+      </div>
+    </section>
+  </sc-if>
+  <sc-if value="{{ heroFullbleed }}" hint-placeholder-val="{{ false }}">
+    <section id="craft" style="position: relative; min-height: 640px; display: flex; align-items: center; background-image: url('uploads/pexels-n-voitkevich-4943485.jpg'); background-size: cover; background-position: center;">
+      <div style="position: absolute; top: 0; bottom: 0; left: 0; width: min(620px, 62%); background: linear-gradient(90deg, rgba(41,48,43,0.6) 0%, rgba(41,48,43,0.42) 65%, rgba(41,48,43,0) 100%);"></div>
+      <div style="position: relative; z-index: 1; max-width: 620px; padding: clamp(120px,14vw,180px) clamp(24px,5vw,64px) clamp(60px,8vw,96px);">
+        <div style="font-size: 12px; letter-spacing: 0.24em; color: #F4F5F1; text-transform: uppercase; opacity: 0.85;">Suryaa Jewels Craft</div>
+        <h1 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(38px,5.6vw,72px); line-height: 1.08; margin: 16px 0; color: #F4F5F1; text-wrap: pretty;">Handcrafted in Gold. Rooted in Heritage.</h1>
+        <p style="font-size: clamp(15px,1.3vw,17px); line-height: 1.7; color: #F4F5F1; opacity: 0.85; max-width: 460px; margin: 0 0 28px; text-wrap: pretty;">A family atelier making fine jewelry entirely by hand — one piece, one goldsmith, one sitting at a time.</p>
+        <a href="#collections" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; background: #F4F5F1; color: #29302B; padding: 15px 32px; border: 1px solid #F4F5F1; display: inline-block;" style-hover="background: #DDE1D9;">See Our Craft</a>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- TRUST STRIP -->
+  <section style="border-top: 1px solid #C8CEC5; border-bottom: 1px solid #C8CEC5; background: #DDE1D9;">
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));">
+      <sc-for list="{{ trust }}" as="item" hint-placeholder-count="3">
+        <div style="padding: clamp(32px,4vw,48px) clamp(24px,4vw,40px); border-left: 1px solid #C8CEC5; display: flex; flex-direction: column; gap: 10px;">
+          <img src="{{ item.icon }}" alt="" style="width: 36px; height: 36px; object-fit: contain; margin-bottom: 6px; mix-blend-mode: multiply;" />
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600;">{{ item.title }}</div>
+          <div style="font-size: 14px; line-height: 1.6; color: #727A72;">{{ item.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- COLLECTIONS SHOWCASE -->
+  <section id="collections" style="padding: clamp(64px,8vw,120px) clamp(24px,5vw,64px);">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 16px; margin-bottom: clamp(32px,4vw,56px);">
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0;">What We Craft</h2>
+      <div style="font-size: 14px; color: #727A72; max-width: 360px; text-align: right;">A showcase of the forms our goldsmiths return to most often — every piece made to order.</div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: clamp(16px,2vw,24px);">
+      <sc-for list="{{ collections }}" as="item" hint-placeholder-count="4">
+        <div style="position: relative; aspect-ratio: 3/4; border: 1px solid #C8CEC5; overflow: hidden;" style-hover="opacity: 0.9;">
+          <img src="{{ item.shot }}" alt="{{ item.title }}" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;" />
+          <div style="position: absolute; left: 0; right: 0; bottom: 0; padding: 20px; background: linear-gradient(180deg, rgba(41,48,43,0) 0%, rgba(41,48,43,0.65) 100%);">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #F4F5F1; font-weight: 500;">{{ item.title }}</div>
+            <div style="font-size: 12px; color: #F4F5F1; opacity: 0.85; margin-top: 4px;">{{ item.sub }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section style="padding: clamp(64px,8vw,120px) clamp(24px,5vw,64px); background: #DDE1D9; border-top: 1px solid #C8CEC5; border-bottom: 1px solid #C8CEC5;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0 0 clamp(32px,4vw,56px);">From Sketch to Setting</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: clamp(24px,3vw,32px);">
+      <sc-for list="{{ process }}" as="item" hint-placeholder-count="5">
+        <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 20px; border-top: 2px solid #29302B;">
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 15px; color: #727A72; letter-spacing: 0.1em;">{{ item.n }}</div>
+          <div style="font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 600;">{{ item.title }}</div>
+          <div style="font-size: 14px; line-height: 1.65; color: #727A72;">{{ item.text }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- ABOUT / STORY -->
+  <section id="heritage" style="display: flex; flex-wrap: wrap; align-items: stretch;">
+    <div style="flex: 1 1 420px; min-height: 420px; border-right: 1px solid #C8CEC5; overflow: hidden;">
+      <img src="uploads/Gold_brooch_on_silk_cloth_202608291243.jpeg" alt="Gold brooch on silk cloth" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+    </div>
+    <div style="flex: 1 1 420px; display: flex; flex-direction: column; justify-content: center; gap: 20px; padding: clamp(40px,6vw,96px) clamp(24px,5vw,64px);">
+      <div style="font-size: 12px; letter-spacing: 0.24em; color: #727A72; text-transform: uppercase;">Our Heritage</div>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0; text-wrap: pretty;">Three Generations of Goldsmiths</h2>
+      <p style="font-size: 15px; line-height: 1.75; color: #727A72; max-width: 480px; margin: 0; text-wrap: pretty;">What began as a single workbench, passed down through our family, has grown into a small atelier — but the way we work hasn't changed. Every design is sketched by hand, every stone is set by eye, and every piece leaves the workshop having passed through the same hands that started it.</p>
+      <p style="font-size: 15px; line-height: 1.75; color: #727A72; max-width: 480px; margin: 0; text-wrap: pretty;">We keep our batches small on purpose, the same way our grandfather did — it's the only way to keep the craft honest.</p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <sc-if value="{{ showTestimonials }}" hint-placeholder-val="{{ true }}">
+    <section style="padding: clamp(64px,8vw,120px) clamp(24px,5vw,64px);">
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0 0 clamp(32px,4vw,56px); text-align: center;">Trusted by Families for Generations</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: clamp(32px,4vw,48px); max-width: 1100px; margin: 0 auto;">
+        <sc-for list="{{ testimonials }}" as="item" hint-placeholder-count="3">
+          <div style="display: flex; flex-direction: column; gap: 16px;">
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 44px; line-height: 1; color: #C8CEC5;">"</div>
+            <div style="font-family: 'Cormorant Garamond', serif; font-size: 18px; line-height: 1.6; font-style: italic; color: #29302B;">{{ item.quote }}</div>
+            <div style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #727A72;">{{ item.name }} — {{ item.place }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- GALLERY -->
+  <section style="padding: clamp(64px,8vw,120px) clamp(24px,5vw,64px); background: #DDE1D9; border-top: 1px solid #C8CEC5;">
+    <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0 0 clamp(32px,4vw,56px);">From the Workshop</h2>
+    <div style="position: relative;">
+      <div ref="{{ galleryRef }}" class="om-scrollbar-hide" style="display: flex; gap: 16px; overflow-x: auto; scroll-behavior: smooth; scroll-snap-type: x mandatory;">
+        <sc-for list="{{ gallery }}" as="item" hint-placeholder-count="10">
+          <div style="flex: 0 0 calc((100% - 64px) / 5); aspect-ratio: 1/1; overflow: hidden; scroll-snap-align: start;">
+            <img src="{{ item.src }}" alt="{{ item.alt }}" style="width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease;" style-hover="transform: scale(1.08);" />
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ scrollGalleryLeft }}" aria-label="Scroll left" style="position: absolute; left: -18px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #C8CEC5; background: #E9ECE5; color: #29302B; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;" style-hover="background: #29302B; color: #F4F5F1;">&#8249;</button>
+      <button onClick="{{ scrollGalleryRight }}" aria-label="Scroll right" style="position: absolute; right: -18px; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; border-radius: 50%; border: 1px solid #C8CEC5; background: #E9ECE5; color: #29302B; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;" style-hover="background: #29302B; color: #F4F5F1;">&#8250;</button>
+    </div>
+  </section>
+
+  <!-- VISIT -->
+  <section id="visit" style="display: flex; flex-wrap: wrap;">
+    <div style="flex: 1 1 380px; padding: clamp(48px,6vw,96px) clamp(24px,5vw,64px); display: flex; flex-direction: column; gap: 24px;">
+      <div style="font-size: 12px; letter-spacing: 0.24em; color: #727A72; text-transform: uppercase;">Visit</div>
+      <h2 style="font-family: 'Cormorant Garamond', serif; font-weight: 500; font-size: clamp(30px,3.4vw,44px); margin: 0;">Visit the Atelier</h2>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.7; color: #727A72;">
+        <div style="color: #29302B; font-weight: 500;">Address</div>
+        <div>Suryaa Jewels Craft, Edyar Street, Chennai</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.7; color: #727A72;">
+        <div style="color: #29302B; font-weight: 500;">Hours</div>
+        <div>Tuesday — Sunday, 10:30 AM – 7:30 PM</div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px; font-size: 15px; line-height: 1.7; color: #727A72;">
+        <div style="color: #29302B; font-weight: 500;">Contact</div>
+        <div>+91 98765 43210 · hello@suryaajewelscraft.com</div>
+        <div>Instagram — @suryaajewelscraft</div>
+      </div>
+      <a href="#visit" style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; background: #29302B; color: #F4F5F1; padding: 15px 32px; border: 1px solid #29302B; display: inline-block; width: fit-content; margin-top: 8px; white-space: nowrap;" style-hover="background: #454f47;">Book a Visit</a>
+    </div>
+    <div style="flex: 1 1 380px; min-height: 380px; background: repeating-linear-gradient(45deg, #DDE1D9 0 20px, #E9ECE5 20px 40px); border-left: 1px solid #C8CEC5; display: flex; align-items: center; justify-content: center;">
+      <div style="font-family: monospace; font-size: 12px; letter-spacing: 0.15em; color: #727A72; text-align: center;">MAP \u2014 ATELIER LOCATION</div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="border-top: 1px solid #C8CEC5; padding: clamp(32px,4vw,48px) clamp(24px,5vw,64px); display: flex; flex-direction: column; gap: 24px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+      <div>
+        <div style="font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em;">SURYAA</div>
+        <div style="font-size: 10px; letter-spacing: 0.24em; color: #727A72; margin-top: 2px;">JEWELS CRAFT</div>
+      </div>
+      <div style="display: flex; gap: 28px; flex-wrap: wrap;">
+        <a href="#craft" style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Craft</a>
+        <a href="#heritage" style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Heritage</a>
+        <a href="#collections" style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Collections</a>
+        <a href="#visit" style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: #727A72; text-decoration: none;" style-hover="color: #29302B;">Visit</a>
+      </div>
+    </div>
+    <div style="font-size: 12px; color: #727A72;">© 2026 Suryaa Jewels Craft. All rights reserved.</div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900},
+  &quot;heroVariant&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;fullbleed&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;options&quot;: [&quot;split&quot;, &quot;fullbleed&quot;], &quot;section&quot;: &quot;Hero&quot;},
+  &quot;navSolid&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Navigation&quot;},
+  &quot;showTestimonials&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Sections&quot;}
+}">
+class Component extends DCLogic {
+  galleryRef = React.createRef();
+  scrollGallery(dir) {
+    const el = this.galleryRef.current;
+    if (!el) return;
+    el.scrollBy({ left: dir * el.clientWidth * 0.9, behavior: 'smooth' });
+  }
+  renderVals() {
+    const heroVariant = this.props.heroVariant ?? 'fullbleed';
+    const navSolid = this.props.navSolid ?? false;
+    const showTestimonials = this.props.showTestimonials ?? true;
+    return {
+      heroSplit: heroVariant === 'split',
+      heroFullbleed: heroVariant === 'fullbleed',
+      navSolid: navSolid,
+      navTransparent: !navSolid,
+      showTestimonials: showTestimonials,
+      trust: [
+        { title: 'Handmade, Not Machine-Cast', text: 'Every piece is shaped, cast and finished by hand at our own bench.', icon: 'uploads/Drafting_compass_sketching_ring_2K_202608291251.jpeg' },
+        { title: 'BIS Hallmarked Gold', text: 'All gold jewelry is hallmarked and certified before it leaves the workshop.', icon: 'uploads/Gold_icon_on_gold_bar_202608291251.jpeg' },
+        { title: 'Custom Design on Request', text: 'Bring a sketch, a reference or an idea — we design around you.', icon: 'uploads/Gold_handmade_quality_icon_2K_202608291251.jpeg' },
+      ],
+      collections: [
+        { title: 'Necklaces & Haarams', sub: 'Statement pieces for festive occasions', shot: 'uploads/Gold_necklace_on_velvet_cushion_202608291242.jpeg' },
+        { title: 'Bridal Sets', sub: 'Complete looks for the wedding day', shot: 'uploads/Gold_drop_earrings_near_obsidian_202608291243.jpeg' },
+        { title: 'Rings', sub: 'Engagement, cocktail and everyday', shot: 'uploads/Gold_signet_ring_with_crest_202608291243.jpeg' },
+        { title: 'Earrings', sub: 'Jhumkas, studs and chandelier drops', shot: 'uploads/Gold_hoop_earrings_on_clay_202608291243.jpeg' },
+      ],
+      process: [
+        { n: '01', title: 'Design Sketch', text: 'Every piece starts as a hand-drawn sketch, refined with the client until the form is right.' },
+        { n: '02', title: 'Wax Carving', text: 'The design is carved in wax, translating the sketch into three dimensions.' },
+        { n: '03', title: 'Casting', text: 'The wax model is cast in gold or silver using the lost-wax method.' },
+        { n: '04', title: 'Stone Setting', text: 'Stones are set one at a time by hand, checked for alignment and security.' },
+        { n: '05', title: 'Hand Polishing', text: 'The piece is polished and finished entirely by hand before it leaves the bench.' },
+      ],
+      testimonials: [
+        { quote: 'They remade my grandmother\u2019s bangles without losing a single detail of the original design.', name: 'Priya R.', place: 'Chennai' },
+        { quote: 'We brought a rough sketch for an engagement ring and they built exactly what we imagined.', name: 'Arjun K.', place: 'Bengaluru' },
+        { quote: 'The kind of craftsmanship you assume doesn\u2019t exist anymore. It does, here.', name: 'Meera S.', place: 'Chennai' },
+      ],
+      galleryRef: this.galleryRef,
+      scrollGalleryLeft: () => this.scrollGallery(-1),
+      scrollGalleryRight: () => this.scrollGallery(1),
+      gallery: [
+        { src: 'uploads/Gold_necklace_draped_on_sandstone_202608291242.jpeg', alt: 'Gold necklace on sandstone' },
+        { src: 'uploads/Gold_signet_ring_with_crest_202608291243.jpeg', alt: 'Gold signet ring with crest' },
+        { src: 'uploads/Gold_hoop_earrings_on_clay_202608291243.jpeg', alt: 'Gold hoop earrings on clay' },
+        { src: 'uploads/Gold_drop_earrings_near_obsidian_202608291243.jpeg', alt: 'Gold drop earrings' },
+        { src: 'uploads/Gold_necklace_on_velvet_cushion_202608291242.jpeg', alt: 'Gold necklace on velvet cushion' },
+        { src: 'uploads/Gold_brooch_on_silk_cloth_202608291243.jpeg', alt: 'Gold brooch on silk cloth' },
+        { src: 'uploads/Gold_bracelet_on_marble_slab_202608291242.jpeg', alt: 'Gold bracelet on marble slab' },
+        { src: 'uploads/Gold_cuff_on_slate_tile_202608291242.jpeg', alt: 'Gold cuff on slate tile' },
+        { src: 'uploads/Gold_ring_on_velvet_surface_202608291242.jpeg', alt: 'Gold ring on velvet surface' },
+        { src: 'uploads/Gold_anklet_tangled_on_driftwood_202608291243.jpeg', alt: 'Gold anklet on driftwood' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

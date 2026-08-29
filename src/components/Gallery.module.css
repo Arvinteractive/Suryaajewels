@@ -1,0 +1,77 @@
+.section {
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 5vw, 64px);
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(30px, 3.4vw, 44px);
+  margin: 0 0 clamp(32px, 4vw, 56px);
+}
+
+.wrap {
+  position: relative;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.card {
+  flex: 0 0 calc((100% - 64px) / 5);
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.card:hover img {
+  transform: scale(1.08);
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 150ms ease, color 150ms ease, opacity 150ms ease;
+}
+
+.arrow:hover:not(:disabled) {
+  background: var(--color-text);
+  color: var(--color-light);
+}
+
+.arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.arrowLeft {
+  left: -18px;
+}
+
+.arrowRight {
+  right: -18px;
+}
