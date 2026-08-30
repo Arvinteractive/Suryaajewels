@@ -35,7 +35,7 @@ export default function CaseFileShowcase() {
 
         <div className={styles.index}>
           <span>Collections · Made to Order</span>
-          <span>{String(collections.length).padStart(2, '0')} categories</span>
+          <span>{collections.map((item) => item.tag).join(' · ')}</span>
         </div>
 
         <div className={styles.grid}>

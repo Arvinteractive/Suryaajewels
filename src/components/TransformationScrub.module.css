@@ -22,19 +22,35 @@
 .paneAfter {
   position: absolute;
   inset: 0;
-  display: grid;
-  place-items: center;
+  overflow: hidden;
 }
 
 .pane {
   background: var(--color-surface);
-  color: var(--color-text);
 }
 
 .paneAfter {
   background: var(--color-ink-deep);
-  color: var(--color-light);
   will-change: clip-path;
+}
+
+.paneImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.paneImgAfter {
+  object-position: center 40%;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  /* background: linear-gradient(180deg, rgba(15, 16, 10, 0.55) 0%, transparent 40%); */
+  pointer-events: none;
 }
 
 .label,
@@ -45,30 +61,15 @@
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  color: rgba(244, 245, 241, 0.9);
 }
 
 .label {
   left: 24px;
-  color: var(--color-text-secondary);
 }
 
 .labelAfter {
   right: 24px;
-  color: rgba(244, 245, 241, 0.7);
-}
-
-.word {
-  font-family: var(--font-serif);
-  font-size: clamp(40px, 9vw, 120px);
-  font-weight: 500;
-  padding: 0 24px;
-  text-align: center;
-  text-wrap: balance;
-}
-
-.wordAfter {
-  composes: word;
-  color: var(--color-gold-light);
 }
 
 .handle {

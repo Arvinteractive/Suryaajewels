@@ -1,5 +1,5 @@
 import styles from './Footer.module.css'
-import { navLinks, trustItems } from '../config'
+import { navLinks, trustItems, heirloomQuote } from '../config'
 
 function InstagramIcon(props) {
   return (
@@ -70,6 +70,7 @@ export default function Footer() {
       </div>
 
       <div className={styles.bottom}>
+        <p className={styles.quote}>&ldquo;{heirloomQuote}&rdquo;</p>
         <div className={styles.copyright}>© 2026 Suryaa Jewels Craft. All rights reserved.</div>
       </div>
     </footer>

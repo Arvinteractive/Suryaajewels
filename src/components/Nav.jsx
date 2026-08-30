@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import styles from './Nav.module.css'
 import { navLinks } from '../config'
 
@@ -13,24 +14,26 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  return (
-    <div className={styles.navWrap}>
-      <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : styles.navOverHero}`}>
-        <div>
-          <div className={styles.wordmark}>SURYAA</div>
-          <div className={styles.microLabel}>JEWELS CRAFT</div>
-        </div>
-        <div className={styles.links}>
-          {navLinks.map((item) => (
-            <a key={item.href} href={item.href} className={styles.link}>
-              {item.label}
-            </a>
-          ))}
-          <a href="#visit" className={styles.bookBtn}>
-            Book a Visit
+  const portalTarget = typeof document !== 'undefined' ? document.getElementById('nav-portal') : null
+  if (!portalTarget) return null
+
+  return createPortal(
+    <nav className={`${styles.nav} ${scrolled ? styles.navScrolled : styles.navOverHero}`}>
+      <div>
+        <div className={styles.wordmark}>SURYAA</div>
+        <div className={styles.microLabel}>JEWELS CRAFT</div>
+      </div>
+      <div className={styles.links}>
+        {navLinks.map((item) => (
+          <a key={item.href} href={item.href} className={styles.link}>
+            {item.label}
           </a>
-        </div>
-      </nav>
-    </div>
+        ))}
+        <a href="#visit" className={styles.bookBtn}>
+          Book a Visit
+        </a>
+      </div>
+    </nav>,
+    portalTarget,
   )
 }

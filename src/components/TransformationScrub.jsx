@@ -4,6 +4,8 @@ import { gsap, ScrollTrigger } from '../lib/gsap'
 import { useReducedMotion } from '../lib/useReducedMotion'
 import styles from './TransformationScrub.module.css'
 import { transformation } from '../config'
+import goldBefore from '../assets/gold-before.png'
+import goldAfter from '../assets/gold-after.png'
 
 // Before/after wipe driven entirely by scroll progress: the "after" pane
 // clips open from the left and a handle rides the seam, so the sketch
@@ -49,8 +51,9 @@ export default function TransformationScrub() {
       <div className={styles.eyebrow}>From Sketch to Setting</div>
       <div ref={rootRef} className={styles.stage}>
         <div className={styles.pane}>
+          <img src={goldBefore} alt="Raw 999.9 fine gold bar before it is shaped into a piece" className={styles.paneImg} />
+          <div className={styles.scrim} />
           <span className={styles.label}>{transformation.beforeLabel}</span>
-          <span className={styles.word}>{transformation.beforeWord}</span>
         </div>
 
         <div
@@ -58,8 +61,13 @@ export default function TransformationScrub() {
           className={styles.paneAfter}
           style={{ clipPath: 'inset(0 100% 0 0)' }}
         >
+          <img
+            src={goldAfter}
+            alt="Finished 22K gold bracelet, the completed heirloom piece"
+            className={`${styles.paneImg} ${styles.paneImgAfter}`}
+          />
+          <div className={styles.scrim} />
           <span className={styles.labelAfter}>{transformation.afterLabel}</span>
-          <span className={styles.wordAfter}>{transformation.afterWord}</span>
         </div>
 
         <div ref={handleRef} className={styles.handle} style={{ left: '0%' }}>

@@ -6,10 +6,10 @@ export default function Visit() {
     <section id="visit" className={styles.section}>
       <div className={styles.text}>
         <Reveal as="div" className={styles.eyebrow}>
-          Visit
+          The Studio
         </Reveal>
         <Reveal as="h2" delay={80} className={styles.heading}>
-          Visit the Atelier
+          Witness the Craft
         </Reveal>
         <Reveal as="div" delay={140} className={styles.field}>
           <div className={styles.fieldLabel}>Address</div>
@@ -25,7 +25,7 @@ export default function Visit() {
           <div>Instagram — @suryaajewelscraft</div>
         </Reveal>
         <a href="#visit" className={styles.cta}>
-          Book a Visit
+          Book an Appointment
         </a>
       </div>
       <div className={styles.mapWrap}>

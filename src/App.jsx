@@ -11,8 +11,11 @@ import Gallery from './components/Gallery'
 import Visit from './components/Visit'
 import Footer from './components/Footer'
 import { siteConfig } from './config'
+import { useSmoothScroll } from './lib/useSmoothScroll'
 
 function App() {
+  useSmoothScroll()
+
   return (
     <div style={{ position: 'relative' }}>
       <Nav />

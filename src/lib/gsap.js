@@ -1,8 +1,9 @@
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ScrollSmoother } from 'gsap/ScrollSmoother'
 
 if (typeof window !== 'undefined') {
-  gsap.registerPlugin(ScrollTrigger)
+  gsap.registerPlugin(ScrollTrigger, ScrollSmoother)
 
   // Only trust a refresh when the viewport has real dimensions — a
   // backgrounded/inactive tab can briefly report a 0x0 layout, and
@@ -23,4 +24,4 @@ if (typeof window !== 'undefined') {
   })
 }
 
-export { gsap, ScrollTrigger }
+export { gsap, ScrollTrigger, ScrollSmoother }
