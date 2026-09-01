@@ -207,30 +207,20 @@
 .modalHead {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.modalFile {
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: rgba(244, 245, 241, 0.8);
+  /* Only the close control lives here now. */
+  justify-content: flex-end;
 }
 
 .closeBtn {
   display: flex;
   align-items: center;
-  gap: 12px;
   background: none;
   border: none;
   padding: 0;
   color: rgba(244, 245, 241, 0.85);
-  font-family: inherit;
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
   cursor: pointer;
   transition: color 200ms ease;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .closeBtn:hover {
@@ -276,33 +266,12 @@
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 640px) {
-  .modalMeta {
-    grid-template-columns: 1fr auto;
-    gap: 48px;
-  }
-}
-
 .modalSummary {
   max-width: 480px;
   font-size: 15px;
   line-height: 1.7;
   color: rgba(244, 245, 241, 0.82);
   margin: 0;
-}
-
-.modalCredits {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: rgba(244, 245, 241, 0.6);
-  white-space: nowrap;
 }
 
 /*
@@ -373,10 +342,6 @@
     padding-top: 16px;
   }
 
-  .modalCredits {
-    /* Fixed-width credit lines overflow a phone; let them wrap. */
-    white-space: normal;
-  }
 }
 
 /*
@@ -408,7 +373,7 @@
   .modalBody {
     /* Not "margin-top: auto" here: an auto margin inside a flex column that
        has to shrink fights the flex sizing below. */
-    margin-top: 12px;
+    margin-top: 8px;
     flex: 1;
     min-height: 0;
     display: flex;
@@ -422,16 +387,6 @@
     overscroll-behavior: contain;
   }
 
-  .modalFile {
-    font-size: 10px;
-    letter-spacing: 0.18em;
-  }
-
-  .closeBtn {
-    gap: 8px;
-    font-size: 10px;
-  }
-
   .closeRing {
     width: 30px;
     height: 30px;
@@ -443,22 +398,19 @@
   }
 
   .modalMeta {
-    margin-top: 10px;
-    padding-top: 10px;
+    /* Two elements left in the panel — the rule between them was doing less
+       than the ~20px it cost, which is what pushed the copy past the card. */
+    margin-top: 8px;
+    padding-top: 0;
+    border-top: none;
     gap: 10px;
   }
 
   .modalSummary {
     font-size: 13px;
-    line-height: 1.55;
+    line-height: 1.5;
   }
 
-  .modalCredits {
-    font-size: 10px;
-    gap: 6px;
-    /* Fixed-width credit lines overflow a phone; let them wrap. */
-    white-space: normal;
-  }
 }
 
 /* ---------- cursor-following close ring ---------- */

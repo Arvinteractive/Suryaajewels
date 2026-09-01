@@ -99,9 +99,15 @@ export default function CaseFileModal({ openIndex, onClose }) {
                   transition={{ duration: 0.4, delay: 0.4 }}
                   className={styles.modalHead}
                 >
-                  <div className={styles.modalFile}>File 0{openIndex + 1} · Suryaa Jewels</div>
-                  <button type="button" onClick={onClose} className={styles.closeBtn}>
-                    Close
+                  {/* Title and description carry the panel on their own. The
+                      file number and house name said nothing a visitor needed,
+                      and the word "Close" is redundant beside the ✕. */}
+                  <button
+                    type="button"
+                    onClick={onClose}
+                    className={styles.closeBtn}
+                    aria-label={`Close ${item.title}`}
+                  >
                     <span className={styles.closeRing}>
                       <X size={16} />
                     </span>
@@ -131,18 +137,6 @@ export default function CaseFileModal({ openIndex, onClose }) {
                     >
                       {item.summary}
                     </motion.p>
-                    <motion.ul
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.55, delay: 0.6 }}
-                      className={styles.modalCredits}
-                    >
-                      <li style={{ color: item.accent }}>{item.sub}</li>
-                      {item.credits.map((c) => (
-                        <li key={c}>{c}</li>
-                      ))}
-                    </motion.ul>
                   </div>
                 </div>
               </div>
