@@ -46,3 +46,31 @@
   line-height: 1.6;
   color: var(--color-text-secondary);
 }
+
+/* Single column below this width — the auto-fit grid needs 240px per
+   track, so 520px is the last width that still fits two. */
+@media (max-width: 519px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .item {
+    /* With one column the left rules read as stray marks; separate the rows
+       instead. */
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .item:first-child {
+    border-top: none;
+  }
+}
+
+@media (hover: none) {
+  .item:hover {
+    background: transparent;
+  }
+  .item:hover .icon {
+    transform: none;
+  }
+}

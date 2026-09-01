@@ -3,28 +3,36 @@
   top: 0;
   left: 0;
   right: 0;
-  z-index: 20;
+  z-index: 40;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  flex-wrap: wrap;
-  padding: clamp(16px, 2vw, 24px) clamp(24px, 5vw, 64px);
+  padding: clamp(14px, 2vw, 24px) clamp(20px, 5vw, 64px);
   background: transparent;
   border-bottom: 1px solid transparent;
   transition: color 200ms ease, background 200ms ease, backdrop-filter 200ms ease, border-color 200ms ease;
 }
 
+.brand {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
 .wordmark {
+  display: block;
   font-family: var(--font-serif);
-  font-size: clamp(26px, 2.8vw, 34px);
+  font-size: clamp(24px, 2.8vw, 34px);
   font-weight: 600;
   letter-spacing: 0.08em;
+  line-height: 1.1;
   transition: color 200ms ease;
 }
 
 .microLabel {
-  font-size: 12px;
+  display: block;
+  font-size: clamp(10px, 1.4vw, 12px);
   letter-spacing: 0.26em;
   margin-top: 2px;
   transition: color 200ms ease, opacity 200ms ease;
@@ -34,7 +42,6 @@
   display: flex;
   align-items: center;
   gap: clamp(20px, 3vw, 40px);
-  flex-wrap: wrap;
 }
 
 .link {
@@ -98,6 +105,9 @@
   background: var(--color-light);
   color: var(--color-text);
 }
+.navOverHero .burgerLine {
+  background: var(--color-light);
+}
 
 /* scrolled — dark text on a translucent, blurred bar */
 .nav.navScrolled {
@@ -123,4 +133,218 @@
 .navScrolled .bookBtn:hover {
   background: var(--color-text);
   color: var(--color-light);
+}
+.navScrolled .burgerLine {
+  background: var(--color-text);
+}
+
+/*
+  backdrop-filter re-samples and blurs everything behind the bar on every
+  frame the page scrolls. Mobile GPUs pay for that continuously, so touch
+  devices get a flat opaque bar that costs one paint instead.
+*/
+@media (pointer: coarse), (max-width: 1024px) {
+  .nav.navScrolled {
+    background: rgba(233, 236, 229, 0.97);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ---------- hamburger ---------- */
+
+.burger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  margin-right: -8px;
+  background: none;
+  border: none;
+  place-items: center;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.burgerBox {
+  position: relative;
+  display: block;
+  width: 26px;
+  height: 14px;
+}
+
+.burgerLine {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--color-text);
+  transition: transform 350ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms ease;
+}
+
+.burgerLine:nth-child(1) {
+  top: 0;
+}
+.burgerLine:nth-child(2) {
+  bottom: 0;
+}
+
+/* burger -> X */
+.navMenuOpen .burgerLine:nth-child(1) {
+  transform: translateY(6.25px) rotate(45deg);
+}
+.navMenuOpen .burgerLine:nth-child(2) {
+  transform: translateY(-6.25px) rotate(-45deg);
+}
+
+/* While the panel is open the bar always sits on the panel's dark ground,
+   regardless of how far the page happens to be scrolled. */
+.nav.navMenuOpen,
+.nav.navMenuOpen.navScrolled {
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom-color: transparent;
+}
+.navMenuOpen .wordmark,
+.navMenuOpen .microLabel {
+  color: var(--color-light);
+}
+.navMenuOpen .burgerLine {
+  background: var(--color-light);
+}
+
+/* ---------- mobile / tablet panel ---------- */
+
+.scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: rgba(16, 24, 15, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 400ms ease;
+}
+
+.scrimOpen {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 35;
+  /* Full width, not a side sheet. The nav bar sits above the panel at full
+     width, so any narrower panel puts a seam straight through the wordmark —
+     half of it on the dark panel, half on the dimmed page behind. */
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: calc(clamp(14px, 2vw, 24px) + 76px) clamp(28px, 7vw, 48px) clamp(32px, 6vw, 48px);
+  background: var(--color-ink-deep);
+  color: var(--color-light);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  visibility: hidden;
+  transform: translate3d(100%, 0, 0);
+  transition: transform 480ms cubic-bezier(0.16, 1, 0.3, 1), visibility 480ms;
+}
+
+.panelOpen {
+  visibility: visible;
+  transform: translate3d(0, 0, 0);
+}
+
+.panel:focus {
+  outline: none;
+}
+
+.panelLinks {
+  display: flex;
+  flex-direction: column;
+  /* Keeps the link rules from stretching the full width of a tablet. */
+  max-width: 560px;
+}
+
+.panelLink {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 18px 0;
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 7vw, 38px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--color-light);
+  border-bottom: 1px solid rgba(244, 245, 241, 0.14);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panelOpen .panelLink {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panelLinkIndex {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  color: var(--color-gold);
+}
+
+.panelCta {
+  align-self: flex-start;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 16px 34px;
+  background: var(--color-gold);
+  color: var(--color-ink-deep);
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 500ms ease, transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.panelOpen .panelCta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.panelFoot {
+  margin-top: auto;
+  max-width: 560px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: rgba(244, 245, 241, 0.6);
+}
+
+@media (max-width: 1024px) {
+  .links {
+    display: none;
+  }
+
+  .burger {
+    display: grid;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .panelLink,
+  .panelCta,
+  .scrim,
+  .burgerLine {
+    transition-duration: 1ms;
+    transition-delay: 0ms !important;
+  }
 }

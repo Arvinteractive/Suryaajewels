@@ -50,11 +50,17 @@ function HeroSplit() {
             src="/images/hero-thumb-1.jpg"
             alt="Handcrafted 22K gold bracelet resting on a marble slab, Suryaa Jewels Coimbatore"
             className={styles.thumb}
+            width={72}
+            height={72}
+            decoding="async"
           />
           <img
             src="/images/hero-thumb-2.jpg"
             alt="Hand-forged 22K gold cuff bracelet on a slate tile, Coimbatore goldsmith bench"
             className={styles.thumb}
+            width={72}
+            height={72}
+            decoding="async"
           />
         </div>
       </div>
@@ -62,6 +68,10 @@ function HeroSplit() {
         <img
           src="/images/hero-split-main.jpg"
           alt="Handcrafted 22K gold necklace draped over raw Coimbatore sandstone"
+          width={1792}
+          height={2400}
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
     </section>

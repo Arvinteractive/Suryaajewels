@@ -1,5 +1,5 @@
 .section {
-  padding: clamp(48px, 6vw, 80px) clamp(24px, 5vw, 64px);
+  padding: clamp(48px, 6vw, 80px) clamp(20px, 5vw, 64px);
 }
 
 .eyebrow {
@@ -92,4 +92,50 @@
   background: var(--color-gold);
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 6px rgba(176, 141, 69, 0.18);
+}
+
+/*
+  Mobile / small tablet: the source frames are wide (1846x852). A viewport-
+  height stage plus object-fit: cover crops them down to a narrow slice of the
+  middle, which loses the piece the whole section exists to show.
+
+  Instead the stage takes the frames' own aspect ratio and the images switch
+  to `contain`, so the full composition stays intact — same framing as desktop,
+  just scaled down to whatever width the screen has. Height follows from the
+  ratio, so a narrow screen gets a short band rather than an overflowing block.
+*/
+@media (max-width: 900px) {
+  .stage {
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 1846 / 852;
+    background: var(--color-ink-deep);
+  }
+
+  .paneImg,
+  .paneImgAfter {
+    object-fit: contain;
+    object-position: center;
+  }
+
+  .label,
+  .labelAfter {
+    top: 12px;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+  }
+
+  .label {
+    left: 12px;
+  }
+
+  .labelAfter {
+    right: 12px;
+  }
+
+  .handleKnob {
+    width: 28px;
+    height: 28px;
+    box-shadow: 0 0 0 4px rgba(176, 141, 69, 0.18);
+  }
 }

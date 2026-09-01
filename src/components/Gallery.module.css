@@ -75,3 +75,27 @@
 .arrowRight {
   right: -18px;
 }
+
+@media (max-width: 1024px) {
+  .card {
+    flex: 0 0 calc((100% - 32px) / 3);
+  }
+}
+
+@media (max-width: 640px) {
+  .card {
+    flex: 0 0 72%;
+  }
+
+  /* The row is already swipeable here, and the arrows sit far enough outside
+     the wrap to push the page into horizontal overflow on a narrow screen. */
+  .arrow {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .card:hover img {
+    transform: none;
+  }
+}

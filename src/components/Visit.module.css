@@ -92,3 +92,19 @@
   background: var(--color-text);
   color: var(--color-light);
 }
+
+@media (max-width: 1024px) {
+  .mapWrap {
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+    min-height: 320px;
+  }
+
+  .map {
+    min-height: 320px;
+  }
+
+  .cta {
+    text-align: center;
+  }
+}

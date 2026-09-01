@@ -30,17 +30,28 @@ export default function ReadingHighlight({
         return
       }
 
+      // The palette is a pure function of which word the reading head is
+      // currently over, so it only actually changes when that word changes.
+      // Tracking it lets the scrub skip the whole write loop on the ~95% of
+      // frames that would repaint every span to the colour it already had.
+      let litWord = -1
+
+      const paint = (progress) => {
+        const lead = progress * spans.length
+        const current = Math.round(lead)
+        if (current === litWord) return
+        litWord = current
+        spans.forEach((s, i) => {
+          s.style.color = i < lead - 0.5 ? inkColor : i < lead + 0.5 ? hotColor : dimColor
+        })
+      }
+
       const trigger = ScrollTrigger.create({
         trigger: el,
         start: 'top 75%',
         end: 'bottom 55%',
         scrub: true,
-        onUpdate: (self) => {
-          const lead = self.progress * spans.length
-          spans.forEach((s, i) => {
-            s.style.color = i < lead - 0.5 ? inkColor : i < lead + 0.5 ? hotColor : dimColor
-          })
-        },
+        onUpdate: (self) => paint(self.progress),
       })
 
       return () => trigger.kill()

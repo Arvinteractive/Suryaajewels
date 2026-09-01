@@ -75,3 +75,20 @@
   margin: 0;
   text-wrap: pretty;
 }
+
+/* Only promoted to its own layer where it actually animates. */
+@media (hover: hover) and (min-width: 1025px) {
+  .overlay {
+    will-change: transform;
+  }
+}
+
+@media (max-width: 1024px) {
+  .imageWrap {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border);
+    /* A full-width 1:1 crop swallows the whole phone screen before a single
+       word of the section is visible. */
+    aspect-ratio: 4 / 3;
+  }
+}

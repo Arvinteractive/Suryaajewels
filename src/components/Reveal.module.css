@@ -4,12 +4,17 @@
   transition:
     opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
     transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  /* Promoted only while the reveal is still pending. Left on permanently
+     this pins a composited layer per wrapped element — dozens of them, for
+     an animation that runs once — and that memory pressure is exactly what
+     mobile GPUs have least of. */
   will-change: opacity, transform;
 }
 
 .visible {
   opacity: 1;
   transform: translateY(0);
+  will-change: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -17,5 +22,6 @@
     opacity: 1;
     transform: none;
     transition: none;
+    will-change: auto;
   }
 }

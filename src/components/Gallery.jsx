@@ -39,7 +39,14 @@ export default function Gallery() {
         <div ref={rowRef} className={`${styles.row} scrollbar-hide`}>
           {galleryImages.map((item, i) => (
             <div className={styles.card} key={i}>
-              <img src={item.src} alt={item.alt} />
+              <img
+                src={item.src}
+                alt={item.alt}
+                width={1792}
+                height={2400}
+                loading="lazy"
+                decoding="async"
+              />
             </div>
           ))}
         </div>

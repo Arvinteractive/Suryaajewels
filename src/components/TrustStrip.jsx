@@ -8,7 +8,15 @@ export default function TrustStrip() {
       <div className={styles.grid}>
         {trustItems.map((item, i) => (
           <Reveal as="div" key={item.title} delay={i * 90} className={styles.item}>
-            <img src={item.icon} alt="" className={styles.icon} />
+            <img
+              src={item.icon}
+              alt=""
+              className={styles.icon}
+              width={44}
+              height={44}
+              loading="lazy"
+              decoding="async"
+            />
             <div className={styles.title}>{item.title}</div>
             <div className={styles.text}>{item.text}</div>
           </Reveal>

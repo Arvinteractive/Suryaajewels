@@ -56,13 +56,22 @@
 }
 
 .grid {
-  position: relative;
+  /* Intentionally unpositioned: the open case file lives inside a grid cell
+     and, on desktop, must resolve its containing block all the way up to
+     .stage so the wipe still covers the index and hint bars too. The tiles
+     stack correctly above .grain without it. */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1px;
   background: rgba(244, 245, 241, 0.12);
   border-top: 1px solid rgba(244, 245, 241, 0.12);
   border-bottom: 1px solid rgba(244, 245, 241, 0.12);
+}
+
+.tileCell {
+  /* One-child grid so the button stretches to fill the cell; the open case
+     file is absolutely positioned and sits outside the flow. */
+  display: grid;
 }
 
 .tile {
@@ -287,4 +296,160 @@
   text-transform: uppercase;
   color: rgba(244, 245, 241, 0.6);
   white-space: nowrap;
+}
+
+/*
+  Touch devices: :hover latches on tap and stays latched, so a tapped tile
+  would sit permanently scaled with its bar drawn. Neutralise the whole hover
+  choreography rather than letting it stick.
+*/
+@media (hover: none) {
+  .tile:hover {
+    transform: none;
+  }
+  .tile:hover .tileArrow {
+    opacity: 0;
+    transform: translate(-6px, 6px);
+  }
+  .tile:hover .tileTitle {
+    transform: none;
+  }
+  .tile:hover .tileBar {
+    transform: scaleX(0);
+  }
+}
+
+/*
+  The grain is a full-bleed mix-blend-mode layer. Blending it costs a
+  compositing pass over the whole stage every time the section repaints
+  during a scroll — a texture nobody can see at phone density isn't worth it.
+*/
+@media (pointer: coarse) {
+  .grain {
+    display: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .subhead {
+    text-align: left;
+    max-width: 52ch;
+  }
+}
+
+@media (max-width: 640px) {
+  /* Four stacked full-height tiles turn this section into ~1500px of scroll
+     before anything else appears. */
+  .tile {
+    min-height: 240px;
+  }
+
+  .index {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+
+  .modalInner {
+    min-height: 0;
+  }
+
+  .modalMeta {
+    margin-top: 20px;
+    padding-top: 16px;
+  }
+
+  .modalCredits {
+    /* Fixed-width credit lines overflow a phone; let them wrap. */
+    white-space: normal;
+  }
+}
+
+/*
+  Mobile: the tapped card becomes the stage. Positioning the cell makes it the
+  modal's containing block, so the clip-path wipe opens across that card alone
+  instead of taking over the whole section.
+
+  The card keeps its normal height throughout — every tile in the grid stays
+  the same size open or closed, so opening a file never reflows the ones below
+  it. The file is laid out to fit that fixed box, and scrolls inside itself if
+  the copy runs long.
+*/
+@media (max-width: 900px) {
+  .tileCell {
+    position: relative;
+  }
+
+  .modalInner {
+    padding: 16px;
+    overflow: hidden;
+  }
+
+  /*
+    The card can't grow, so the copy has to give. The file header and title
+    stay pinned and only the description below them scrolls — the alternative,
+    scrolling the whole card, pushes the piece's name and the close button out
+    of sight the moment you drag.
+  */
+  .modalBody {
+    /* Not "margin-top: auto" here: an auto margin inside a flex column that
+       has to shrink fights the flex sizing below. */
+    margin-top: 12px;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modalMeta {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .modalFile {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+  }
+
+  .closeBtn {
+    gap: 8px;
+    font-size: 10px;
+  }
+
+  .closeRing {
+    width: 30px;
+    height: 30px;
+  }
+
+  .modalTitle {
+    font-size: clamp(1.65rem, 6.6vw, 2.2rem);
+    line-height: 1;
+  }
+
+  .modalMeta {
+    margin-top: 10px;
+    padding-top: 10px;
+    gap: 10px;
+  }
+
+  .modalSummary {
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .modalCredits {
+    font-size: 10px;
+    gap: 6px;
+    /* Fixed-width credit lines overflow a phone; let them wrap. */
+    white-space: normal;
+  }
 }

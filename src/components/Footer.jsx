@@ -29,7 +29,13 @@ export default function Footer() {
           <ul className={styles.list}>
             {trustItems.map((item) => (
               <li key={item.title} className={styles.assuranceItem}>
-                <img src={item.icon} alt="" className={styles.assuranceIcon} />
+                <img
+                  src={item.icon}
+                  alt=""
+                  className={styles.assuranceIcon}
+                  loading="lazy"
+                  decoding="async"
+                />
                 <span>{item.title}</span>
               </li>
             ))}
