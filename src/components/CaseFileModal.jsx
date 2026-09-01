@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import styles from './CaseFileShowcase.module.css'
-import { collections } from '../config'
+import { collectionArt } from '../config'
+import { useT } from '../i18n/context'
 
 const EASE = [0.76, 0, 0.24, 1]
 
@@ -11,6 +12,7 @@ const EASE = [0.76, 0, 0.24, 1]
 // a real parse-and-compile cost on a mid-range phone — it now only downloads
 // once someone actually reaches for a case file.
 export default function CaseFileModal({ openIndex, onClose }) {
+  const t = useT()
   const cursorRef = useRef(null)
   const pointerRef = useRef({ x: 0, y: 0, host: null })
   const frameRef = useRef(0)
@@ -58,17 +60,18 @@ export default function CaseFileModal({ openIndex, onClose }) {
     <AnimatePresence>
       {openIndex !== null &&
         (() => {
-          const item = collections[openIndex]
+          const art = collectionArt[openIndex]
+          const item = t.collections[openIndex]
           return (
             <motion.div
-              key={item.title}
+              key={openIndex}
               initial={{ clipPath: 'inset(0 0 0 100%)' }}
               animate={{ clipPath: 'inset(0 0 0 0%)' }}
               exit={{ clipPath: 'inset(0 0 0 100%)' }}
               transition={{ duration: 0.85, ease: EASE }}
               className={styles.modal}
               style={{
-                backgroundImage: `linear-gradient(180deg, rgba(22,24,15,0.35) 0%, rgba(22,24,15,0.94) 100%), url(${item.shot})`,
+                backgroundImage: `linear-gradient(180deg, rgba(22,24,15,0.35) 0%, rgba(22,24,15,0.94) 100%), url(${art.shot})`,
               }}
               // The whole open panel is the dismiss target; the ring riding
               // the cursor is what tells you so.
@@ -87,7 +90,7 @@ export default function CaseFileModal({ openIndex, onClose }) {
                 transition={{ duration: 6, ease: 'linear' }}
                 className={styles.modalGlow}
                 style={{
-                  background: `radial-gradient(ellipse at 70% 20%, ${item.accent}, transparent 60%)`,
+                  background: `radial-gradient(ellipse at 70% 20%, ${art.accent}, transparent 60%)`,
                 }}
               />
 
@@ -106,7 +109,7 @@ export default function CaseFileModal({ openIndex, onClose }) {
                     type="button"
                     onClick={onClose}
                     className={styles.closeBtn}
-                    aria-label={`Close ${item.title}`}
+                    aria-label={`${t.showcase.close} — ${item.title}`}
                   >
                     <span className={styles.closeRing}>
                       <X size={16} />

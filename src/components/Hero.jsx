@@ -1,6 +1,9 @@
 import styles from './Hero.module.css'
+import { useT } from '../i18n/context'
 
 function HeroFullbleed() {
+  const t = useT()
+
   return (
     <section
       id="craft"
@@ -9,18 +12,15 @@ function HeroFullbleed() {
     >
       <div className={styles.fullbleedScrim} />
       <div className={styles.fullbleedContent}>
-        <div className={styles.eyebrow}>Suryaa Jewels Craft</div>
+        <div className={styles.eyebrow}>{t.hero.eyebrow}</div>
         <h1 className={styles.h1}>
-          Master Goldsmiths.
+          {t.hero.headlineA}
           <br className={styles.h1Break} />
-          True 22K Heritage.
+          {t.hero.headlineB}
         </h1>
-        <p className={styles.body}>
-          We don&rsquo;t do assembly lines. Every piece is shaped, set, and polished by hand at
-          our Coimbatore bench — preserving three generations of traditional Tamil goldsmithing.
-        </p>
+        <p className={styles.body}>{t.hero.body}</p>
         <a href="#collections" className={styles.ctaLight}>
-          See Our Craft
+          {t.hero.ctaPrimary}
         </a>
       </div>
     </section>
@@ -28,31 +28,30 @@ function HeroFullbleed() {
 }
 
 function HeroSplit() {
+  const t = useT()
+
   return (
     <section id="craft" className={styles.split}>
       <div className={styles.splitText}>
-        <div className={styles.eyebrow}>Suryaa Jewels Craft</div>
+        <div className={styles.eyebrow}>{t.hero.eyebrow}</div>
         <h1 className={styles.h1}>
-          Master Goldsmiths.
+          {t.hero.headlineA}
           <br />
-          True 22K Heritage.
+          {t.hero.headlineB}
         </h1>
-        <p className={styles.body}>
-          We don&rsquo;t do assembly lines. Every piece is shaped, set, and polished by hand at
-          our Coimbatore bench — preserving three generations of traditional Tamil goldsmithing.
-        </p>
+        <p className={styles.body}>{t.hero.body}</p>
         <div className={styles.ctaRow}>
           <a href="#collections" className={styles.ctaDark}>
-            See Our Craft
+            {t.hero.ctaPrimary}
           </a>
           <a href="#heritage" className={styles.ctaOutline}>
-            Our Story
+            {t.hero.ctaSecondary}
           </a>
         </div>
         <div className={styles.thumbRow}>
           <img
             src="/images/hero-thumb-1.jpg"
-            alt="Handcrafted 22K gold bracelet resting on a marble slab, Suryaa Jewels Coimbatore"
+            alt={t.hero.thumbAlt[0]}
             className={styles.thumb}
             width={72}
             height={72}
@@ -60,7 +59,7 @@ function HeroSplit() {
           />
           <img
             src="/images/hero-thumb-2.jpg"
-            alt="Hand-forged 22K gold cuff bracelet on a slate tile, Coimbatore goldsmith bench"
+            alt={t.hero.thumbAlt[1]}
             className={styles.thumb}
             width={72}
             height={72}
@@ -71,7 +70,7 @@ function HeroSplit() {
       <div className={styles.splitImage}>
         <img
           src="/images/hero-split-main.jpg"
-          alt="Handcrafted 22K gold necklace draped over raw Coimbatore sandstone"
+          alt={t.hero.mainAlt}
           width={1792}
           height={2400}
           fetchPriority="high"

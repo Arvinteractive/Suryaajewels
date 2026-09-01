@@ -1,19 +1,22 @@
 import styles from './Process.module.css'
-import { processSteps } from '../config'
+import { processNumbers } from '../config'
+import { useT } from '../i18n/context'
 import Reveal from './Reveal'
 
 export default function Process() {
+  const t = useT()
+
   return (
     <section className={styles.section}>
       <Reveal as="h2" className={styles.heading}>
-        From Sketch to Setting
+        {t.process.heading}
       </Reveal>
       <div className={styles.grid}>
-        {processSteps.map((step, i) => (
-          <Reveal as="div" key={step.n} delay={i * 90} className={styles.step}>
-            <div className={styles.num}>{step.n}</div>
-            <div className={styles.title}>{step.title}</div>
-            <div className={styles.text}>{step.text}</div>
+        {processNumbers.map((n, i) => (
+          <Reveal as="div" key={n} delay={i * 90} className={styles.step}>
+            <div className={styles.num}>{n}</div>
+            <div className={styles.title}>{t.process.steps[i].title}</div>
+            <div className={styles.text}>{t.process.steps[i].text}</div>
           </Reveal>
         ))}
       </div>

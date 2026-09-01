@@ -8,8 +8,10 @@ import styles from './Heritage.module.css'
 import Reveal from './Reveal'
 import ReadingHighlight from './ReadingHighlight'
 import foregroundOverlay from '../assets/foreground-overlay.png'
+import { useT } from '../i18n/context'
 
 export default function Heritage() {
+  const t = useT()
   const stageRef = useRef(null)
   const overlayRef = useRef(null)
   const reduced = useReducedMotion()
@@ -41,7 +43,7 @@ export default function Heritage() {
           <img
             className={styles.baseImg}
             src="/images/about-heritage.jpg"
-            alt="Master goldsmith hand-soldering a 22K gold jewelry piece at the Coimbatore workbench"
+            alt={t.heritage.imageAlt}
             width={1792}
             height={2400}
             loading="lazy"
@@ -63,15 +65,12 @@ export default function Heritage() {
       </Reveal>
       <div className={styles.text}>
         <Reveal as="div" delay={100} className={styles.eyebrow}>
-          Our Heritage
+          {t.heritage.eyebrow}
         </Reveal>
         <Reveal as="h2" delay={160} className={styles.heading}>
-          Three Generations at the Bench
+          {t.heritage.heading}
         </Reveal>
-        <ReadingHighlight
-          text="We still work exactly the way our grandfather did. It takes time, patience, and hands that know how to coax raw metal into an heirloom. Small batches keep the craft honest."
-          className={styles.body}
-        />
+        <ReadingHighlight text={t.heritage.body} className={styles.body} />
       </div>
     </section>
   )

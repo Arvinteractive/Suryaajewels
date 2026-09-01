@@ -53,8 +53,8 @@
 }
 
 .eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.24em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   color: var(--color-text-secondary);
   text-transform: uppercase;
 }
@@ -62,14 +62,14 @@
 .heading {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(30px, 3.4vw, 44px);
+  font-size: calc(clamp(30px, 3.4vw, 44px) * var(--lang-scale));
   margin: 0;
   text-wrap: pretty;
 }
 
 .body {
-  font-size: 15px;
-  line-height: 1.75;
+  font-size: calc(15px * var(--lang-scale));
+  line-height: calc(1.75 * var(--lang-leading));
   color: var(--color-text-secondary);
   max-width: 480px;
   margin: 0;

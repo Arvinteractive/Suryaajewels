@@ -7,7 +7,7 @@
 .heading {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(30px, 3.4vw, 44px);
+  font-size: calc(clamp(30px, 3.4vw, 44px) * var(--lang-scale));
   margin: 0 0 clamp(32px, 4vw, 56px);
 }
 

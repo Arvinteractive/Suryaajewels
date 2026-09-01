@@ -32,8 +32,8 @@
 
 .microLabel {
   display: block;
-  font-size: clamp(10px, 1.4vw, 12px);
-  letter-spacing: 0.26em;
+  font-size: calc(clamp(10px, 1.4vw, 12px) * var(--lang-scale));
+  letter-spacing: calc(0.26em * var(--lang-tracking));
   margin-top: 2px;
   transition: color 200ms ease, opacity 200ms ease;
 }
@@ -46,8 +46,8 @@
 
 .link {
   position: relative;
-  font-size: 15px;
-  letter-spacing: 0.1em;
+  font-size: calc(15px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   transition: color 150ms ease, opacity 150ms ease;
@@ -72,8 +72,8 @@
 }
 
 .bookBtn {
-  font-size: 14px;
-  letter-spacing: 0.08em;
+  font-size: calc(14px * var(--lang-scale));
+  letter-spacing: calc(0.08em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   padding: 12px 26px;
@@ -153,8 +153,29 @@
 
 /* ---------- hamburger ---------- */
 
-.burger {
+/* Language switch + hamburger, the two controls that share the bar with the
+   wordmark once the desktop link row is gone. */
+.mobileControls {
   display: none;
+  align-items: center;
+  gap: clamp(10px, 3vw, 18px);
+}
+
+.langSlot {
+  display: inline-flex;
+}
+
+.navOverHero .langSlot,
+.navMenuOpen .langSlot {
+  color: var(--color-light);
+}
+
+.navScrolled .langSlot {
+  color: var(--color-text);
+}
+
+.burger {
+  display: grid;
   width: 44px;
   height: 44px;
   padding: 0;
@@ -275,9 +296,10 @@
   gap: 14px;
   padding: 18px 0;
   font-family: var(--font-display);
-  font-size: clamp(28px, 7vw, 38px);
+  font-size: calc(clamp(28px, 7vw, 38px) * var(--lang-scale));
   font-weight: 500;
   letter-spacing: 0.02em;
+  line-height: calc(1.2 * var(--lang-leading));
   text-decoration: none;
   color: var(--color-light);
   border-bottom: 1px solid rgba(244, 245, 241, 0.14);
@@ -300,8 +322,8 @@
 
 .panelCta {
   align-self: flex-start;
-  font-size: 12px;
-  letter-spacing: 0.14em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.14em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   padding: 16px 34px;
@@ -323,8 +345,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: calc(13px * var(--lang-scale));
+  line-height: calc(1.6 * var(--lang-leading));
   color: rgba(244, 245, 241, 0.6);
 }
 
@@ -333,8 +355,8 @@
     display: none;
   }
 
-  .burger {
-    display: grid;
+  .mobileControls {
+    display: flex;
   }
 }
 

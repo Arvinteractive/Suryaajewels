@@ -12,6 +12,48 @@
 
   --font-display: 'Outfit', 'Segoe UI', system-ui, sans-serif;
   --font-sans: 'Raleway', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  /*
+    Per-script type adjustments. English is the reference and always resolves
+    to 1 / 1 / 1, so every `calc(<original> * var(--lang-*))` in the CSS
+    modules evaluates to exactly the value that was there before — the English
+    layout is untouched, to the pixel.
+  */
+  --lang-scale: 1; /* font-size multiplier */
+  --lang-tracking: 1; /* letter-spacing multiplier */
+  --lang-leading: 1; /* line-height multiplier */
+}
+
+/*
+  Latin faces first in each stack, Indic second. Font fallback is resolved per
+  character, so "22K", "HUID" and "+91 88381 31708" keep the brand's Outfit /
+  Raleway shapes while the surrounding Devanagari or Tamil comes from Noto —
+  rather than the whole line dropping to a single generic face.
+*/
+html[data-lang='hi'] {
+  --font-display: 'Outfit', 'Noto Sans Devanagari', 'Nirmala UI', system-ui, sans-serif;
+  --font-sans: 'Raleway', 'Noto Sans Devanagari', 'Nirmala UI', system-ui, sans-serif;
+
+  /* Devanagari sets wider than Latin and the copy runs longer, so it comes
+     down a touch. The tracking cut matters more than the size cut: the wide
+     0.24em letter-spacing this design uses on labels pulls conjuncts apart
+     and makes the script look broken. */
+  --lang-scale: 0.92;
+  --lang-tracking: 0.25;
+  /* Matras sit above and below the base line and collide at the tight
+     display leading. */
+  --lang-leading: 1.12;
+}
+
+html[data-lang='ta'] {
+  --font-display: 'Outfit', 'Noto Sans Tamil', 'Latha', system-ui, sans-serif;
+  --font-sans: 'Raleway', 'Noto Sans Tamil', 'Latha', system-ui, sans-serif;
+
+  /* Tamil is the longest of the three — compound words that Latin writes in
+     one short noun routinely run half again as wide. */
+  --lang-scale: 0.88;
+  --lang-tracking: 0.2;
+  --lang-leading: 1.14;
 }
 
 * {
@@ -50,4 +92,62 @@ button {
 
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
+}
+
+/* ---------------------------------------------------------------------------
+   Language cross-fade
+
+   While the provider swaps locales it stamps [data-lang-swap] on <html>: the
+   old copy fades out, the text is replaced while nothing is visible, and the
+   new copy fades back in slightly more slowly than it left.
+
+   Implemented as an animation rather than a plain `opacity` transition on
+   purpose. Half the text on this page already carries a declared opacity that
+   is not 1 — .reveal sits at 0 until it scrolls into view, nav links sit at
+   0.85 over the hero, the case-file hint at 0.5 — and a competing `opacity`
+   declaration would have to out-specify each of them, then hand every value
+   back correctly afterwards. Instead each keyframe below leaves one end
+   *unspecified*, which makes the animation interpolate to and from whatever
+   the cascade already says that element's opacity is. A reveal still waiting
+   below the fold animates 0 -> 0 and stays invisible; a nav link animates
+   0 -> 0.85 and lands exactly where it started. No specificity contest, and
+   nothing to restore when the swap ends.
+   --------------------------------------------------------------------------- */
+
+@keyframes langFadeOut {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes langFadeIn {
+  from {
+    opacity: 0;
+  }
+}
+
+/*
+  Two groups: elements that only ever wrap text, and container-ish elements
+  that usually wrap text but sometimes wrap a photo. The second group is
+  filtered so the fade never touches an image, an icon or the map — only
+  lettering changes language, so only lettering should move.
+*/
+[data-lang-swap] :is(h1, h2, h3, h4, h5, h6, p, span, strong, em, dt, dd, label, blockquote, figcaption, address),
+[data-lang-swap] :is(div, a, li, button):not(:has(img, svg, iframe, video, canvas, picture)) {
+  animation: langFadeOut 220ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+[data-lang-swap='in'] :is(h1, h2, h3, h4, h5, h6, p, span, strong, em, dt, dd, label, blockquote, figcaption, address),
+[data-lang-swap='in'] :is(div, a, li, button):not(:has(img, svg, iframe, video, canvas, picture)) {
+  animation: langFadeIn 460ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* The provider skips the timed swap entirely under reduced motion and commits
+   the new language in one frame; this is belt-and-braces for the case where
+   the preference changes mid-swap. */
+@media (prefers-reduced-motion: reduce) {
+  [data-lang-swap] :is(h1, h2, h3, h4, h5, h6, p, span, strong, em, dt, dd, label, blockquote, figcaption, address),
+  [data-lang-swap] :is(div, a, li, button):not(:has(img, svg, iframe, video, canvas, picture)) {
+    animation: none;
+  }
 }

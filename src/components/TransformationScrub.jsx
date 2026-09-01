@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './TransformationScrub.module.css'
-import { transformation } from '../config'
+import { useT } from '../i18n/context'
 import goldBefore from '../assets/gold-before.png'
 import goldAfter from '../assets/gold-after.png'
 
@@ -24,6 +24,7 @@ const KEY_STEP = 0.05
 // scrolling past used to spend the reveal for you, whether you were looking or
 // not, and left nothing to do once you got here.
 export default function TransformationScrub() {
+  const t = useT()
   const rootRef = useRef(null)
   const afterRef = useRef(null)
   const handleRef = useRef(null)
@@ -105,13 +106,13 @@ export default function TransformationScrub() {
 
   return (
     <section className={styles.section}>
-      <div className={styles.eyebrow}>From Sketch to Setting</div>
+      <div className={styles.eyebrow}>{t.transformation.eyebrow}</div>
 
       <div ref={rootRef} className={`${styles.stage} ${touched ? styles.stageTouched : ''}`}>
         <div className={styles.pane}>
           <img
             src={goldBefore}
-            alt="Raw 999.9 fine gold bar before it is shaped into a piece"
+            alt={t.transformation.beforeAlt}
             className={styles.paneImg}
             width={1846}
             height={852}
@@ -119,7 +120,7 @@ export default function TransformationScrub() {
             decoding="async"
           />
           <div className={styles.scrim} />
-          <span className={styles.label}>{transformation.beforeLabel}</span>
+          <span className={styles.label}>{t.transformation.beforeLabel}</span>
         </div>
 
         <div
@@ -129,7 +130,7 @@ export default function TransformationScrub() {
         >
           <img
             src={goldAfter}
-            alt="Finished 22K gold bracelet, the completed heirloom piece"
+            alt={t.transformation.afterAlt}
             className={`${styles.paneImg} ${styles.paneImgAfter}`}
             width={1844}
             height={853}
@@ -137,7 +138,7 @@ export default function TransformationScrub() {
             decoding="async"
           />
           <div className={styles.scrim} />
-          <span className={styles.labelAfter}>{transformation.afterLabel}</span>
+          <span className={styles.labelAfter}>{t.transformation.afterLabel}</span>
         </div>
 
         <div
@@ -146,7 +147,7 @@ export default function TransformationScrub() {
           style={{ left: `${INITIAL_REVEAL * 100}%` }}
           role="slider"
           tabIndex={0}
-          aria-label="Drag to reveal the finished piece"
+          aria-label={t.transformation.handleAria}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={Math.round(INITIAL_REVEAL * 100)}
@@ -171,7 +172,7 @@ export default function TransformationScrub() {
       {/* Nothing happens here until someone drags, so the invitation has to be
           explicit. It retires the moment the handle is first moved. */}
       <p className={`${styles.prompt} ${touched ? styles.promptDone : ''}`}>
-        Drag the handle across to reveal the finished piece
+        {t.transformation.prompt}
       </p>
     </section>
   )

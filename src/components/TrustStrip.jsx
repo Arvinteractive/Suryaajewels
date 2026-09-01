@@ -1,15 +1,18 @@
 import styles from './TrustStrip.module.css'
-import { trustItems } from '../config'
+import { trustIcons } from '../config'
+import { useT } from '../i18n/context'
 import Reveal from './Reveal'
 
 export default function TrustStrip() {
+  const t = useT()
+
   return (
     <section className={styles.section}>
       <div className={styles.grid}>
-        {trustItems.map((item, i) => (
-          <Reveal as="div" key={item.title} delay={i * 90} className={styles.item}>
+        {trustIcons.map((icon, i) => (
+          <Reveal as="div" key={icon} delay={i * 90} className={styles.item}>
             <img
-              src={item.icon}
+              src={icon}
               alt=""
               className={styles.icon}
               width={44}
@@ -17,8 +20,8 @@ export default function TrustStrip() {
               loading="lazy"
               decoding="async"
             />
-            <div className={styles.title}>{item.title}</div>
-            <div className={styles.text}>{item.text}</div>
+            <div className={styles.title}>{t.trust[i].title}</div>
+            <div className={styles.text}>{t.trust[i].text}</div>
           </Reveal>
         ))}
       </div>

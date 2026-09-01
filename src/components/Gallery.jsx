@@ -2,8 +2,10 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import styles from './Gallery.module.css'
 import { galleryImages } from '../config'
+import { useT } from '../i18n/context'
 
 export default function Gallery() {
+  const t = useT()
   const rowRef = useRef(null)
   const [pages, setPages] = useState(1)
   const [active, setActive] = useState(0)
@@ -69,14 +71,14 @@ export default function Gallery() {
 
   return (
     <section className={styles.section}>
-      <h2 className={styles.heading}>From the Workshop</h2>
+      <h2 className={styles.heading}>{t.gallery.heading}</h2>
 
       <div ref={rowRef} className={`${styles.row} scrollbar-hide`}>
-        {galleryImages.map((item, i) => (
-          <div className={styles.card} key={i}>
+        {galleryImages.map((src, i) => (
+          <div className={styles.card} key={src}>
             <img
-              src={item.src}
-              alt={item.alt}
+              src={src}
+              alt={t.gallery.alts[i]}
               width={1792}
               height={2400}
               loading="lazy"
@@ -90,7 +92,7 @@ export default function Gallery() {
         <button
           type="button"
           className={styles.arrow}
-          aria-label="Previous images"
+          aria-label={t.gallery.prev}
           onClick={() => goToPage(active - 1)}
           disabled={active === 0}
         >
@@ -103,7 +105,7 @@ export default function Gallery() {
               key={i}
               type="button"
               className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
-              aria-label={`Go to slide ${i + 1} of ${pages}`}
+              aria-label={t.gallery.slide(i + 1, pages)}
               aria-current={i === active}
               onClick={() => goToPage(i)}
             />
@@ -113,7 +115,7 @@ export default function Gallery() {
         <button
           type="button"
           className={styles.arrow}
-          aria-label="Next images"
+          aria-label={t.gallery.next}
           onClick={() => goToPage(active + 1)}
           disabled={active >= pages - 1}
         >

@@ -29,8 +29,8 @@
 }
 
 .eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.24em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   text-transform: uppercase;
   color: var(--color-light);
   opacity: 0.85;
@@ -43,7 +43,7 @@
 .h1 {
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 1.08;
+  line-height: calc(1.08 * var(--lang-leading));
   margin: 16px 0;
   text-wrap: pretty;
 }
@@ -55,13 +55,27 @@
   ceiling pushed it to four.
 */
 .fullbleedContent .h1 {
-  font-size: clamp(31px, 4.6vw, 60px);
+  font-size: calc(clamp(31px, 4.6vw, 60px) * var(--lang-scale));
   color: var(--color-light);
 }
 
+/*
+  Two lines is the design here, not a coincidence, and Tamil is the one script
+  that cannot hold them at the scaled size — it sets this sentence about 40%
+  wider than Devanagari does, so the flat --lang-scale still left it wrapping
+  to four lines and pushed the CTA past the fold. 41px is the measured ceiling
+  at which the longer of the two lines clears the 632px column.
+
+  Hindi needs nothing: it fits either line at ~85px, well above the size the
+  scale factor already puts it at.
+*/
+:global(html[data-lang='ta']) .fullbleedContent .h1 {
+  font-size: clamp(23px, 3.2vw, 41px);
+}
+
 .fullbleedContent .body {
-  font-size: clamp(15px, 1.3vw, 17px);
-  line-height: 1.7;
+  font-size: calc(clamp(15px, 1.3vw, 17px) * var(--lang-scale));
+  line-height: calc(1.7 * var(--lang-leading));
   color: var(--color-light);
   opacity: 0.85;
   max-width: 460px;
@@ -71,8 +85,8 @@
 
 .ctaLight {
   display: inline-block;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   background: var(--color-light);
@@ -107,14 +121,19 @@
 }
 
 .splitText .h1 {
-  font-size: clamp(38px, 5.2vw, 68px);
+  font-size: calc(clamp(38px, 5.2vw, 68px) * var(--lang-scale));
   margin: 0;
   color: var(--color-text);
 }
 
+/* Same two-line rule as the fullbleed variant, in a narrower column. */
+:global(html[data-lang='ta']) .splitText .h1 {
+  font-size: clamp(25px, 3.1vw, 40px);
+}
+
 .splitText .body {
-  font-size: clamp(15px, 1.3vw, 17px);
-  line-height: 1.7;
+  font-size: calc(clamp(15px, 1.3vw, 17px) * var(--lang-scale));
+  line-height: calc(1.7 * var(--lang-leading));
   color: var(--color-text-secondary);
   max-width: 480px;
   margin: 0;
@@ -129,8 +148,8 @@
 }
 
 .ctaDark {
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   background: var(--color-text);
@@ -144,8 +163,8 @@
 }
 
 .ctaOutline {
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-text);

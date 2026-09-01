@@ -12,8 +12,8 @@
 }
 
 .eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.24em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   color: var(--color-text-secondary);
   text-transform: uppercase;
 }
@@ -21,7 +21,7 @@
 .heading {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(30px, 3.4vw, 44px);
+  font-size: calc(clamp(30px, 3.4vw, 44px) * var(--lang-scale));
   margin: 0;
 }
 
@@ -29,8 +29,8 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: calc(15px * var(--lang-scale));
+  line-height: calc(1.7 * var(--lang-leading));
   color: var(--color-text-secondary);
 }
 
@@ -40,8 +40,8 @@
 }
 
 .cta {
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   background: var(--color-text);
@@ -77,8 +77,8 @@
   position: absolute;
   right: 16px;
   bottom: 16px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.1em * var(--lang-tracking));
   text-transform: uppercase;
   text-decoration: none;
   background: var(--color-bg);

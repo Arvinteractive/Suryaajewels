@@ -1,0 +1,78 @@
+/*
+  Square-edged to match the rest of the site — the only round thing in this
+  design is the close ring inside a case file. Every colour here resolves from
+  `currentColor`, which the nav sets per scroll state.
+*/
+.group {
+  position: relative;
+  display: inline-flex;
+  align-items: stretch;
+  flex: none;
+  border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  transition: border-color 200ms ease;
+}
+
+.indicator {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(100% / 3);
+  background: color-mix(in srgb, currentColor 13%, transparent);
+  border-bottom: 1.5px solid var(--color-gold);
+  transition: transform 420ms cubic-bezier(0.16, 1, 0.3, 1), background 200ms ease;
+  pointer-events: none;
+}
+
+.option {
+  position: relative;
+  z-index: 1;
+  min-width: 44px;
+  padding: 9px 4px 8px;
+  background: none;
+  border: none;
+  color: inherit;
+  /* Deliberately not scaled by --lang-scale: the switch labels are always in
+     their own script regardless of which language the page is in, so they
+     must stay legible when the rest of the page shrinks. */
+  font-size: 12px;
+  line-height: 1.25;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  transition: opacity 200ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.option:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.optionActive,
+.optionActive:hover:not(:disabled) {
+  opacity: 1;
+}
+
+.option:disabled {
+  cursor: default;
+}
+
+.option:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
+/* Bar-mounted variant for the mobile header, where it shares the row with the
+   wordmark and the hamburger. */
+.compact .option {
+  min-width: 36px;
+  padding: 7px 3px 6px;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .indicator {
+    transition-duration: 1ms;
+  }
+}

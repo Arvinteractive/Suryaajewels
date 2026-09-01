@@ -1,11 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import styles from './Nav.module.css'
-import { navLinks } from '../config'
+import { navLinks, contact } from '../config'
 import { useMediaQuery } from '../lib/useMediaQuery'
 import { MOBILE_QUERY } from '../lib/breakpoints'
+import LangToggle from './LangToggle'
+import { useT } from '../i18n/context'
 
 export default function Nav() {
+  const t = useT()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const isMobile = useMediaQuery(MOBILE_QUERY)
@@ -80,34 +83,47 @@ export default function Nav() {
       <nav className={barClass}>
         <a href="#craft" className={styles.brand} onClick={closeMenu}>
           <span className={styles.wordmark}>SURYAA</span>
-          <span className={styles.microLabel}>JEWELS CRAFT</span>
+          <span className={styles.microLabel}>{t.nav.microLabel}</span>
         </a>
 
         <div className={styles.links}>
-          {navLinks.map((item) => (
+          {navLinks.map((item, i) => (
             <a key={item.href} href={item.href} className={styles.link}>
-              {item.label}
+              {t.nav.links[i]}
             </a>
           ))}
+          <span className={styles.langSlot}>
+            <LangToggle />
+          </span>
           <a href="#visit" className={styles.bookBtn}>
-            Book a Visit
+            {t.nav.book}
           </a>
         </div>
 
-        <button
-          ref={toggleRef}
-          type="button"
-          className={styles.burger}
-          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          aria-expanded={menuOpen}
-          aria-controls="nav-mobile-panel"
-          onClick={() => setMenuOpen((open) => !open)}
-        >
-          <span className={styles.burgerBox} aria-hidden="true">
-            <span className={styles.burgerLine} />
-            <span className={styles.burgerLine} />
+        {/* Below the nav breakpoint the link row that hosts the desktop switch
+            is gone, so a compact one rides the bar itself. Deliberately not
+            tucked inside the slide-out panel: nobody thinks to open a menu
+            looking for a language they cannot currently read. */}
+        <div className={styles.mobileControls}>
+          <span className={styles.langSlot}>
+            <LangToggle compact />
           </span>
-        </button>
+
+          <button
+            ref={toggleRef}
+            type="button"
+            className={styles.burger}
+            aria-label={menuOpen ? t.nav.closeMenu : t.nav.openMenu}
+            aria-expanded={menuOpen}
+            aria-controls="nav-mobile-panel"
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span className={styles.burgerBox} aria-hidden="true">
+              <span className={styles.burgerLine} />
+              <span className={styles.burgerLine} />
+            </span>
+          </button>
+        </div>
       </nav>
 
       <div
@@ -135,7 +151,7 @@ export default function Nav() {
               onClick={closeMenu}
             >
               <span className={styles.panelLinkIndex}>0{i + 1}</span>
-              {item.label}
+              {t.nav.links[i]}
             </a>
           ))}
         </div>
@@ -146,12 +162,12 @@ export default function Nav() {
           style={{ transitionDelay: menuOpen ? `${120 + navLinks.length * 55}ms` : '0ms' }}
           onClick={closeMenu}
         >
-          Book a Visit
+          {t.nav.book}
         </a>
 
         <div className={styles.panelFoot}>
-          <div>Edayar St, Town Hall, Coimbatore</div>
-          <div>+91 88381 31708</div>
+          <div>{t.visit.shortAddress}</div>
+          <div>{contact.phone}</div>
         </div>
       </div>
     </>,

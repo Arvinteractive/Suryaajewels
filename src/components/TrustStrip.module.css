@@ -37,13 +37,13 @@
 
 .title {
   font-family: var(--font-display);
-  font-size: 19px;
+  font-size: calc(19px * var(--lang-scale));
   font-weight: 600;
 }
 
 .text {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: calc(14px * var(--lang-scale));
+  line-height: calc(1.6 * var(--lang-leading));
   color: var(--color-text-secondary);
 }
 

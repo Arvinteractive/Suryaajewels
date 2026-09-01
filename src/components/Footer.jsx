@@ -1,5 +1,6 @@
 import styles from './Footer.module.css'
-import { navLinks, trustItems, heirloomQuote } from '../config'
+import { navLinks, trustIcons, contact } from '../config'
+import { useT } from '../i18n/context'
 
 function InstagramIcon(props) {
   return (
@@ -12,43 +13,42 @@ function InstagramIcon(props) {
 }
 
 export default function Footer() {
+  const t = useT()
+
   return (
     <footer className={styles.footer}>
       <div className={styles.top}>
         <div className={styles.brandCol}>
           <div className={styles.wordmark}>SURYAA</div>
-          <div className={styles.microLabel}>JEWELS CRAFT</div>
-          <p className={styles.tagline}>
-            A family atelier making fine jewelry entirely by hand — one piece, one goldsmith, one
-            sitting at a time.
-          </p>
+          <div className={styles.microLabel}>{t.footer.microLabel}</div>
+          <p className={styles.tagline}>{t.footer.tagline}</p>
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colHeading}>Our Assurance</h4>
+          <h4 className={styles.colHeading}>{t.footer.assurance}</h4>
           <ul className={styles.list}>
-            {trustItems.map((item) => (
-              <li key={item.title} className={styles.assuranceItem}>
+            {trustIcons.map((icon, i) => (
+              <li key={icon} className={styles.assuranceItem}>
                 <img
-                  src={item.icon}
+                  src={icon}
                   alt=""
                   className={styles.assuranceIcon}
                   loading="lazy"
                   decoding="async"
                 />
-                <span>{item.title}</span>
+                <span>{t.trust[i].title}</span>
               </li>
             ))}
           </ul>
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colHeading}>Explore</h4>
+          <h4 className={styles.colHeading}>{t.footer.explore}</h4>
           <ul className={styles.list}>
-            {navLinks.map((item) => (
+            {navLinks.map((item, i) => (
               <li key={item.href}>
                 <a href={item.href} className={styles.link}>
-                  {item.label}
+                  {t.nav.links[i]}
                 </a>
               </li>
             ))}
@@ -56,27 +56,27 @@ export default function Footer() {
         </div>
 
         <div className={styles.col}>
-          <h4 className={styles.colHeading}>Visit Us</h4>
+          <h4 className={styles.colHeading}>{t.footer.visitUs}</h4>
           <address className={styles.address}>
-            <div>Suryaa Jewels Craft, Edayar St, Town Hall, Coimbatore, Tamil Nadu 641001</div>
-            <div>Tuesday — Sunday, 10:30 AM – 7:30 PM</div>
-            <div>+91 88381 31708</div>
+            <div>{t.visit.address}</div>
+            <div>{t.visit.hours}</div>
+            <div>{contact.phone}</div>
           </address>
           <a
-            href="https://instagram.com/suryaajewelscraft"
+            href={contact.instagramUrl}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.social}
           >
             <InstagramIcon />
-            @suryaajewelscraft
+            {contact.instagram}
           </a>
         </div>
       </div>
 
       <div className={styles.bottom}>
-        <p className={styles.quote}>&ldquo;{heirloomQuote}&rdquo;</p>
-        <div className={styles.copyright}>© 2026 Suryaa Jewels Craft. All rights reserved.</div>
+        <p className={styles.quote}>&ldquo;{t.footer.quote}&rdquo;</p>
+        <div className={styles.copyright}>{t.footer.copyright}</div>
       </div>
     </footer>
   )

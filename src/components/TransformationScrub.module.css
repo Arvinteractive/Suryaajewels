@@ -3,8 +3,8 @@
 }
 
 .eyebrow {
-  font-size: 12px;
-  letter-spacing: 0.24em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   color: var(--color-text-secondary);
   text-transform: uppercase;
   margin-bottom: 16px;
@@ -59,9 +59,9 @@
 .labelAfter {
   position: absolute;
   top: 24px;
-  font-size: 11px;
+  font-size: calc(11px * var(--lang-scale));
   font-weight: 600;
-  letter-spacing: 0.2em;
+  letter-spacing: calc(0.2em * var(--lang-tracking));
   text-transform: uppercase;
   color: rgba(244, 245, 241, 0.9);
 }
@@ -175,8 +175,8 @@
   .label,
   .labelAfter {
     top: 12px;
-    font-size: 10px;
-    letter-spacing: 0.16em;
+    font-size: calc(10px * var(--lang-scale));
+    letter-spacing: calc(0.16em * var(--lang-tracking));
   }
 
   .label {
@@ -201,8 +201,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 11px;
-  letter-spacing: 0.22em;
+  font-size: calc(11px * var(--lang-scale));
+  letter-spacing: calc(0.22em * var(--lang-tracking));
   text-transform: uppercase;
   color: var(--color-text-secondary);
   transition: opacity 400ms ease;

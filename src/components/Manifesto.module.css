@@ -13,7 +13,7 @@
   max-width: 900px;
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(28px, 4.2vw, 56px);
-  line-height: 1.25;
+  font-size: calc(clamp(28px, 4.2vw, 56px) * var(--lang-scale));
+  line-height: calc(1.25 * var(--lang-leading));
   color: var(--color-text);
 }

@@ -14,12 +14,12 @@
 .heading {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(30px, 3.4vw, 44px);
+  font-size: calc(clamp(30px, 3.4vw, 44px) * var(--lang-scale));
   margin: 0;
 }
 
 .subhead {
-  font-size: 14px;
+  font-size: calc(14px * var(--lang-scale));
   color: var(--color-text-secondary);
   max-width: 360px;
   text-align: right;
@@ -49,8 +49,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 22px clamp(20px, 4vw, 40px);
-  font-size: 11px;
-  letter-spacing: 0.24em;
+  font-size: calc(11px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   text-transform: uppercase;
   color: rgba(244, 245, 241, 0.65);
 }
@@ -147,16 +147,16 @@
 
 .tileTitle {
   font-family: var(--font-display);
-  font-size: clamp(24px, 2.4vw, 32px);
+  font-size: calc(clamp(24px, 2.4vw, 32px) * var(--lang-scale));
   font-weight: 500;
-  line-height: 1.1;
+  line-height: calc(1.1 * var(--lang-leading));
   transition: transform 500ms ease;
 }
 
 .tileSub {
   margin-top: 8px;
-  font-size: 12px;
-  letter-spacing: 0.03em;
+  font-size: calc(12px * var(--lang-scale));
+  letter-spacing: calc(0.03em * var(--lang-tracking));
   color: rgba(244, 245, 241, 0.7);
 }
 
@@ -174,8 +174,8 @@
 .hint {
   position: relative;
   padding: 18px clamp(20px, 4vw, 40px);
-  font-size: 11px;
-  letter-spacing: 0.24em;
+  font-size: calc(11px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
   text-transform: uppercase;
   color: rgba(244, 245, 241, 0.5);
 }
@@ -252,9 +252,23 @@
 .modalTitle {
   font-family: var(--font-display);
   font-weight: 500;
-  font-size: clamp(2.4rem, 8.5vw, 6rem);
-  line-height: 0.95;
+  font-size: calc(clamp(2.4rem, 8.5vw, 6rem) * var(--lang-scale));
+  line-height: calc(0.95 * var(--lang-leading));
   margin: 0;
+}
+
+/*
+  Tamil writes these category names about a third wider than English, and at
+  the shared size the two longest ones wrap — but this title is designed as a
+  single line dropping into a mask, so a second line doubles the block and
+  shoves the summary down. 6.2vw is the measured ceiling for the longest of
+  the four. Scoped above the mobile breakpoint so it cannot out-specify the
+  small-screen rule further down. Hindi clears the shared size at every width.
+*/
+@media (min-width: 901px) {
+  :global(html[data-lang='ta']) .modalTitle {
+    font-size: clamp(1.9rem, 6.2vw, 4.6rem);
+  }
 }
 
 .modalMeta {
@@ -268,8 +282,8 @@
 
 .modalSummary {
   max-width: 480px;
-  font-size: 15px;
-  line-height: 1.7;
+  font-size: calc(15px * var(--lang-scale));
+  line-height: calc(1.7 * var(--lang-leading));
   color: rgba(244, 245, 241, 0.82);
   margin: 0;
 }
@@ -329,8 +343,8 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 6px;
-    font-size: 10px;
-    letter-spacing: 0.18em;
+    font-size: calc(10px * var(--lang-scale));
+    letter-spacing: calc(0.18em * var(--lang-tracking));
   }
 
   .modalInner {
@@ -393,8 +407,8 @@
   }
 
   .modalTitle {
-    font-size: clamp(1.65rem, 6.6vw, 2.2rem);
-    line-height: 1;
+    font-size: calc(clamp(1.65rem, 6.6vw, 2.2rem) * var(--lang-scale));
+    line-height: calc(1 * var(--lang-leading));
   }
 
   .modalMeta {
@@ -407,8 +421,8 @@
   }
 
   .modalSummary {
-    font-size: 13px;
-    line-height: 1.5;
+    font-size: calc(13px * var(--lang-scale));
+    line-height: calc(1.5 * var(--lang-leading));
   }
 
 }
