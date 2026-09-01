@@ -1,74 +1,113 @@
-import { useRef } from 'react'
-import { useGSAP } from '@gsap/react'
-import { gsap, ScrollTrigger } from '../lib/gsap'
-import { useReducedMotion } from '../lib/useReducedMotion'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './TransformationScrub.module.css'
 import { transformation } from '../config'
 import goldBefore from '../assets/gold-before.png'
 import goldAfter from '../assets/gold-after.png'
 
-// Before/after wipe driven entirely by scroll progress: the "after" pane
-// clips open from the left and a handle rides the seam, so the sketch
-// scrubs into the finished piece as you move through the section.
+// Parked just inside the left edge: far enough in that the knob sits wholly
+// within the frame rather than straddling the border — it is the one control
+// in this section, so it should not open half cut off — and early enough that
+// the strip it uncovers is still empty backdrop. The reveal stays entirely the
+// visitor's to make.
+//
+// Bounded on both sides, so do not raise it blind. The knob needs ~5.5% to
+// clear the frame at the narrowest phone width, and the bracelet's leftmost
+// pixel sits at 9.4% of gold-after.png — past that, the piece starts showing
+// before anyone has touched anything. Re-measure both if the art changes.
+const INITIAL_REVEAL = 0.08
+
+const KEY_STEP = 0.05
+
+// Before/after comparison worked entirely by hand: the "after" pane clips open
+// from the left and a handle rides the seam, so dragging the handle across
+// turns the raw bar into the finished piece. Deliberately not scroll-driven —
+// scrolling past used to spend the reveal for you, whether you were looking or
+// not, and left nothing to do once you got here.
 export default function TransformationScrub() {
   const rootRef = useRef(null)
   const afterRef = useRef(null)
   const handleRef = useRef(null)
-  const reduced = useReducedMotion()
 
-  useGSAP(
-    () => {
+  const revealRef = useRef(INITIAL_REVEAL)
+  const draggingRef = useRef(false)
+  // Cached on pointerdown: the stage cannot move mid-drag, so re-measuring it
+  // on every pointermove would be a layout read per sample for no new answer.
+  const rectRef = useRef(null)
+
+  const [touched, setTouched] = useState(false)
+
+  const apply = useCallback((reveal) => {
+    const after = afterRef.current
+    const handle = handleRef.current
+    if (!after || !handle) return
+    revealRef.current = reveal
+    after.style.clipPath = `inset(0 ${100 - reveal * 100}% 0 0)`
+    handle.style.left = `${reveal * 100}%`
+    handle.setAttribute('aria-valuenow', String(Math.round(reveal * 100)))
+  }, [])
+
+  useEffect(() => {
+    apply(INITIAL_REVEAL)
+  }, [apply])
+
+  const revealAt = useCallback((clientX) => {
+    const rect = rectRef.current
+    if (!rect || rect.width === 0) return 0
+    return Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1)
+  }, [])
+
+  const onPointerDown = useCallback(
+    (e) => {
       const root = rootRef.current
-      const after = afterRef.current
-      const handle = handleRef.current
-      if (!root || !after || !handle) return
-
-      const apply = (reveal) => {
-        after.style.clipPath = `inset(0 ${100 - reveal * 100}% 0 0)`
-        handle.style.left = `${reveal * 100}%`
-      }
-
-      if (reduced) {
-        apply(0.5)
-        return
-      }
-
-      // The wipe is one-way: it only ever opens further, so stopping mid-way
-      // and scrolling back up leaves it where it got to instead of unwinding.
-      let peak = 0
-      const commit = (reveal) => {
-        peak = reveal
-        apply(peak)
-      }
-
-      const trigger = ScrollTrigger.create({
-        trigger: root,
-        start: 'top 78%',
-        end: 'bottom 30%',
-        scrub: true,
-        // A refresh re-measures the section once fonts and images settle, so
-        // anything latched before it was read against stale geometry — rebase
-        // down to the truth rather than keeping a reveal the page was never
-        // actually scrolled to. Once fully open it stays open.
-        onRefresh: (self) => {
-          const reveal = gsap.utils.clamp(0, 1, self.progress)
-          if (peak < 1 && reveal < peak) commit(reveal)
-        },
-        onUpdate: (self) => {
-          const reveal = gsap.utils.clamp(0, 1, self.progress)
-          if (reveal > peak) commit(reveal)
-        },
-      })
-
-      return () => trigger.kill()
+      if (!root) return
+      draggingRef.current = true
+      rectRef.current = root.getBoundingClientRect()
+      e.currentTarget.setPointerCapture(e.pointerId)
+      setTouched(true)
+      apply(revealAt(e.clientX))
     },
-    { scope: rootRef, dependencies: [reduced] },
+    [apply, revealAt],
+  )
+
+  const onPointerMove = useCallback(
+    (e) => {
+      if (!draggingRef.current) return
+      apply(revealAt(e.clientX))
+    },
+    [apply, revealAt],
+  )
+
+  const onPointerUp = useCallback((e) => {
+    if (!draggingRef.current) return
+    draggingRef.current = false
+    e.currentTarget.releasePointerCapture?.(e.pointerId)
+  }, [])
+
+  const onKeyDown = useCallback(
+    (e) => {
+      const step =
+        e.key === 'ArrowLeft'
+          ? -KEY_STEP
+          : e.key === 'ArrowRight'
+            ? KEY_STEP
+            : e.key === 'Home'
+              ? -1
+              : e.key === 'End'
+                ? 1
+                : 0
+      if (!step) return
+      e.preventDefault()
+      setTouched(true)
+      apply(Math.min(Math.max(revealRef.current + step, 0), 1))
+    },
+    [apply],
   )
 
   return (
     <section className={styles.section}>
       <div className={styles.eyebrow}>From Sketch to Setting</div>
-      <div ref={rootRef} className={styles.stage}>
+
+      <div ref={rootRef} className={`${styles.stage} ${touched ? styles.stageTouched : ''}`}>
         <div className={styles.pane}>
           <img
             src={goldBefore}
@@ -86,7 +125,7 @@ export default function TransformationScrub() {
         <div
           ref={afterRef}
           className={styles.paneAfter}
-          style={{ clipPath: 'inset(0 100% 0 0)' }}
+          style={{ clipPath: `inset(0 ${100 - INITIAL_REVEAL * 100}% 0 0)` }}
         >
           <img
             src={goldAfter}
@@ -101,10 +140,39 @@ export default function TransformationScrub() {
           <span className={styles.labelAfter}>{transformation.afterLabel}</span>
         </div>
 
-        <div ref={handleRef} className={styles.handle} style={{ left: '0%' }}>
-          <div className={styles.handleKnob} />
+        <div
+          ref={handleRef}
+          className={styles.handle}
+          style={{ left: `${INITIAL_REVEAL * 100}%` }}
+          role="slider"
+          tabIndex={0}
+          aria-label="Drag to reveal the finished piece"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(INITIAL_REVEAL * 100)}
+          aria-orientation="horizontal"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          onKeyDown={onKeyDown}
+        >
+          <div className={styles.handleKnob}>
+            <span className={styles.handleArrow} aria-hidden="true">
+              ‹
+            </span>
+            <span className={styles.handleArrow} aria-hidden="true">
+              ›
+            </span>
+          </div>
         </div>
       </div>
+
+      {/* Nothing happens here until someone drags, so the invitation has to be
+          explicit. It retires the moment the handle is first moved. */}
+      <p className={`${styles.prompt} ${touched ? styles.promptDone : ''}`}>
+        Drag the handle across to reveal the finished piece
+      </p>
     </section>
   )
 }

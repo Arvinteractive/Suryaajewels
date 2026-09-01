@@ -12,7 +12,7 @@ if (typeof window !== 'undefined') {
     if (window.innerWidth > 0 && window.innerHeight > 0) ScrollTrigger.refresh()
   }
 
-  // Web fonts (Cormorant Garamond / Jost) swap in after first paint and
+  // Web fonts (Outfit / Raleway) swap in after first paint and
   // reflow text, which shifts every trigger position ScrollTrigger already
   // cached — recompute once they're actually loaded, once more after full
   // page load for any late image-driven shifts, and again whenever the tab

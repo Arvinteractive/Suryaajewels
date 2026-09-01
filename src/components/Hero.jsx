@@ -10,7 +10,11 @@ function HeroFullbleed() {
       <div className={styles.fullbleedScrim} />
       <div className={styles.fullbleedContent}>
         <div className={styles.eyebrow}>Suryaa Jewels Craft</div>
-        <h1 className={styles.h1}>Master Goldsmiths. True 22K Heritage.</h1>
+        <h1 className={styles.h1}>
+          Master Goldsmiths.
+          <br className={styles.h1Break} />
+          True 22K Heritage.
+        </h1>
         <p className={styles.body}>
           We don&rsquo;t do assembly lines. Every piece is shaped, set, and polished by hand at
           our Coimbatore bench — preserving three generations of traditional Tamil goldsmithing.

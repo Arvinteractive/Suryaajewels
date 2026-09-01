@@ -11,7 +11,7 @@
 .statement {
   margin: 0;
   max-width: 900px;
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(28px, 4.2vw, 56px);
   line-height: 1.25;

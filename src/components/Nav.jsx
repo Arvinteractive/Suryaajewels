@@ -151,7 +151,7 @@ export default function Nav() {
 
         <div className={styles.panelFoot}>
           <div>Edayar St, Town Hall, Coimbatore</div>
-          <div>+91 98765 43210</div>
+          <div>+91 88381 31708</div>
         </div>
       </div>
     </>,

@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useState } from 'react'
+import { Suspense, lazy, useCallback, useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import styles from './CaseFileShowcase.module.css'
 import { collections } from '../config'
@@ -21,10 +21,21 @@ export default function CaseFileShowcase() {
   // out of the same card it wiped into.
   const [host, setHost] = useState(null)
 
-  // Warm the lazy chunk on the first sign of intent — hover on desktop, the
-  // touch that precedes the tap on mobile — so opening still feels instant.
-  const prefetchModal = useCallback(() => {
-    import('./CaseFileModal')
+  // Warm the lazy chunk once the browser is idle. Hover used to trigger this,
+  // which never helped a phone: touchstart and click land in the same instant,
+  // so the first tap sat waiting on the network and the wipe began late — the
+  // press appeared to need confirming. Idle keeps it off the critical path and
+  // still has it ready long before anyone reaches the section.
+  useEffect(() => {
+    const warm = () => {
+      import('./CaseFileModal')
+    }
+    if (typeof requestIdleCallback === 'function') {
+      const id = requestIdleCallback(warm, { timeout: 2500 })
+      return () => cancelIdleCallback(id)
+    }
+    const id = setTimeout(warm, 1500)
+    return () => clearTimeout(id)
   }, [])
 
   const closeModal = useCallback(() => setOpen(null), [])
@@ -47,12 +58,7 @@ export default function CaseFileShowcase() {
           <span>{collections.map((item) => item.tag).join(' · ')}</span>
         </div>
 
-        <div
-          className={styles.grid}
-          onPointerEnter={prefetchModal}
-          onTouchStart={prefetchModal}
-          onFocus={prefetchModal}
-        >
+        <div className={styles.grid}>
           {collections.map((item, k) => (
             <div key={item.title} className={styles.tileCell}>
               <button

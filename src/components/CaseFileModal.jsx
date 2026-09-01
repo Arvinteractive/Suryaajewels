@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useCallback, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import styles from './CaseFileShowcase.module.css'
@@ -11,6 +11,40 @@ const EASE = [0.76, 0, 0.24, 1]
 // a real parse-and-compile cost on a mid-range phone — it now only downloads
 // once someone actually reaches for a case file.
 export default function CaseFileModal({ openIndex, onClose }) {
+  const cursorRef = useRef(null)
+  const pointerRef = useRef({ x: 0, y: 0, host: null })
+  const frameRef = useRef(0)
+
+  // The ring is moved by writing a transform straight to the node inside one
+  // rAF, never through state: a pointermove that re-rendered the open file on
+  // every sample would undo the scroll work this section just had.
+  const paintCursor = useCallback(() => {
+    frameRef.current = 0
+    const ring = cursorRef.current
+    const { x, y, host } = pointerRef.current
+    if (!ring || !host) return
+
+    const rect = host.getBoundingClientRect()
+    const radius = ring.offsetWidth / 2
+    // Clamped to the panel: approaching an edge the ring stops against it
+    // rather than hanging half outside the container it belongs to.
+    const localX = Math.min(Math.max(x - rect.left, radius), rect.width - radius)
+    const localY = Math.min(Math.max(y - rect.top, radius), rect.height - radius)
+    ring.style.transform = `translate3d(${localX}px, ${localY}px, 0) translate(-50%, -50%)`
+  }, [])
+
+  const trackCursor = useCallback(
+    (e) => {
+      pointerRef.current.x = e.clientX
+      pointerRef.current.y = e.clientY
+      pointerRef.current.host = e.currentTarget
+      if (!frameRef.current) frameRef.current = requestAnimationFrame(paintCursor)
+    },
+    [paintCursor],
+  )
+
+  useEffect(() => () => cancelAnimationFrame(frameRef.current), [])
+
   useEffect(() => {
     if (openIndex === null) return
     const onKey = (e) => {
@@ -36,8 +70,17 @@ export default function CaseFileModal({ openIndex, onClose }) {
               style={{
                 backgroundImage: `linear-gradient(180deg, rgba(22,24,15,0.35) 0%, rgba(22,24,15,0.94) 100%), url(${item.shot})`,
               }}
+              // The whole open panel is the dismiss target; the ring riding
+              // the cursor is what tells you so.
+              onClick={onClose}
+              onPointerMove={trackCursor}
+              onPointerEnter={trackCursor}
             >
               <div className={styles.grain} style={{ opacity: 0.08 }} />
+
+              <div ref={cursorRef} className={styles.cursorClose} aria-hidden="true">
+                <X size={22} strokeWidth={1.4} />
+              </div>
               <motion.div
                 initial={{ scale: 1.08 }}
                 animate={{ scale: 1 }}

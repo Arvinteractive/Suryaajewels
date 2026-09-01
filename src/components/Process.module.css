@@ -6,7 +6,7 @@
 }
 
 .heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(30px, 3.4vw, 44px);
   margin: 0 0 clamp(32px, 4vw, 56px);
@@ -27,14 +27,14 @@
 }
 
 .num {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 15px;
   color: var(--color-text-secondary);
   letter-spacing: 0.1em;
 }
 
 .title {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 21px;
   font-weight: 600;
 }

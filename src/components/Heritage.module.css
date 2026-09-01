@@ -60,7 +60,7 @@
 }
 
 .heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(30px, 3.4vw, 44px);
   margin: 0;

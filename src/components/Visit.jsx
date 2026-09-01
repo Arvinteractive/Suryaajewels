@@ -21,7 +21,7 @@ export default function Visit() {
         </Reveal>
         <Reveal as="div" delay={240} className={styles.field}>
           <div className={styles.fieldLabel}>Contact</div>
-          <div>+91 98765 43210 · hello@suryaajewelscraft.com</div>
+          <div>+91 88381 31708</div>
           <div>Instagram — @suryaajewelscraft</div>
         </Reveal>
         <a href="#visit" className={styles.cta}>

@@ -60,8 +60,7 @@ export default function Footer() {
           <address className={styles.address}>
             <div>Suryaa Jewels Craft, Edayar St, Town Hall, Coimbatore, Tamil Nadu 641001</div>
             <div>Tuesday — Sunday, 10:30 AM – 7:30 PM</div>
-            <div>+91 98765 43210</div>
-            <div>hello@suryaajewelscraft.com</div>
+            <div>+91 88381 31708</div>
           </address>
           <a
             href="https://instagram.com/suryaajewelscraft"

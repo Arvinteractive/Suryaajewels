@@ -7,9 +7,11 @@ export const siteConfig = {
 }
 
 export const navLinks = [
-  { label: 'Craft', href: '#craft' },
+  // Points at the "What We Craft" showcase, not the hero. #craft sits on the
+  // hero, which is the top of the page — as a nav destination it just meant
+  // "scroll back up", which is not what the label promises.
+  { label: 'Craft', href: '#collections' },
   { label: 'Heritage', href: '#heritage' },
-  { label: 'Collections', href: '#collections' },
   { label: 'Visit', href: '#visit' },
 ]
 

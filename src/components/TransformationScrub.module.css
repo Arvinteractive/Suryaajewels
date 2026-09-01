@@ -14,7 +14,9 @@
   position: relative;
   height: 56vh;
   min-height: 340px;
-  overflow: hidden;
+  /* Not clipped: the handle starts flush at the left edge, and hiding overflow
+     here would cut the knob in half exactly where it most needs to be seen.
+     Both panes clip their own images, so nothing else escapes. */
   border: 1px solid var(--color-border);
 }
 
@@ -78,20 +80,72 @@
   bottom: 0;
   width: 2px;
   background: var(--color-gold);
-  pointer-events: none;
   transform: translateX(-1px);
+  cursor: ew-resize;
+  /* Claims the horizontal gesture so a drag works the seam instead of
+     scrolling the page out from under it on touch. */
+  touch-action: none;
+}
+
+/* A 2px line is not a grab target. This widens the hit area to a comfortable
+   strip without widening the seam itself. */
+.handle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -15px;
+  right: -15px;
+}
+
+.handle:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 4px;
 }
 
 .handleKnob {
   position: absolute;
   top: 50%;
   left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   width: 40px;
   height: 40px;
   border-radius: 999px;
   background: var(--color-gold);
   transform: translate(-50%, -50%);
   box-shadow: 0 0 0 6px rgba(176, 141, 69, 0.18);
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 220ms ease;
+}
+
+/* The chevrons are the only thing telling anyone the knob can be dragged. */
+.handleArrow {
+  font-size: 17px;
+  line-height: 1;
+  color: var(--color-ink-deep);
+  opacity: 0.75;
+}
+
+.handle:hover .handleKnob,
+.handle:focus-visible .handleKnob {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 0 0 9px rgba(176, 141, 69, 0.22);
+}
+
+.handle:active {
+  cursor: grabbing;
+}
+
+.handle:active .handleKnob {
+  transform: translate(-50%, -50%) scale(0.96);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handleKnob {
+    transition: none;
+  }
 }
 
 /*
@@ -137,5 +191,64 @@
     width: 28px;
     height: 28px;
     box-shadow: 0 0 0 4px rgba(176, 141, 69, 0.18);
+  }
+}
+
+/* ---------- drag prompt ---------- */
+
+.prompt {
+  margin: 18px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+  transition: opacity 400ms ease;
+}
+
+.prompt::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--color-gold);
+}
+
+/* Retired once the handle has been moved — the instruction has served its
+   purpose and would only be clutter from then on. */
+.promptDone {
+  opacity: 0;
+}
+
+/*
+  Until the handle is first moved there is nothing on screen suggesting this
+  section does anything, so the knob breathes to catch the eye. It stops for
+  good on first contact.
+*/
+@keyframes knobPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 6px rgba(176, 141, 69, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 15px rgba(176, 141, 69, 0.04);
+  }
+}
+
+.handleKnob {
+  animation: knobPulse 2.6s ease-in-out infinite;
+}
+
+.stageTouched .handleKnob {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .handleKnob {
+    animation: none;
+  }
+  .prompt {
+    transition: none;
   }
 }

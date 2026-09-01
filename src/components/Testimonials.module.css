@@ -3,7 +3,7 @@
 }
 
 .heading {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 500;
   font-size: clamp(30px, 3.4vw, 44px);
   margin: 0 0 clamp(32px, 4vw, 56px);
@@ -25,14 +25,14 @@
 }
 
 .mark {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 44px;
   line-height: 1;
   color: var(--color-border);
 }
 
 .quote {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-size: 18px;
   line-height: 1.6;
   font-style: italic;

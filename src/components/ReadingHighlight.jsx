@@ -5,11 +5,18 @@ import { useReducedMotion } from '../lib/useReducedMotion'
 
 // Sentence whose words ignite in turn as a reading head sweeps through on
 // scroll progress: words behind it settle to ink, the word under it flares
-// in the accent colour, words ahead stay dim.
+// in the accent colour, words ahead sit at the site's ordinary body colour.
+//
+// That waiting colour is the site's normal secondary text, not a faded one.
+// It used to be --color-border, which lands at roughly 1.3:1 against the page
+// and made every word the head had not reached yet effectively invisible — so
+// above or below the scrub range the whole paragraph vanished. The effect is
+// an accent on readable copy; it must never be the thing that makes the copy
+// unreadable.
 export default function ReadingHighlight({
   text,
   inkColor = 'var(--color-text)',
-  dimColor = 'var(--color-border)',
+  dimColor = 'var(--color-text-secondary)',
   hotColor = 'var(--color-gold)',
   className = '',
 }) {
@@ -52,6 +59,11 @@ export default function ReadingHighlight({
         end: 'bottom 55%',
         scrub: true,
         onUpdate: (self) => paint(self.progress),
+        // Land below this section — a reload part-way down, or an anchor jump
+        // straight to Visit — and no scroll event ever fires here, leaving the
+        // sentence frozen at whatever it was first painted as. Settle it
+        // against the real scroll position as soon as one is known.
+        onRefresh: (self) => paint(self.progress),
       })
 
       return () => trigger.kill()

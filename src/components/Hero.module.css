@@ -12,7 +12,7 @@
   top: 0;
   bottom: 0;
   left: 0;
-  width: min(620px, 62%);
+  width: min(760px, 70%);
   background: linear-gradient(
     90deg,
     rgba(41, 48, 43, 0.6) 0%,
@@ -24,7 +24,7 @@
 .fullbleedContent {
   position: relative;
   z-index: 1;
-  max-width: 620px;
+  max-width: 760px;
   padding: clamp(120px, 14vw, 180px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 96px);
 }
 
@@ -41,15 +41,21 @@
 }
 
 .h1 {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-weight: 500;
   line-height: 1.08;
   margin: 16px 0;
   text-wrap: pretty;
 }
 
+/*
+  Sized so the longer of the two lines — "Master Goldsmiths." — clears the
+  column at every width, keeping the headline to the two lines it is written
+  as. Outfit sets far wider than the serif this replaced, so the old 72px
+  ceiling pushed it to four.
+*/
 .fullbleedContent .h1 {
-  font-size: clamp(38px, 5.6vw, 72px);
+  font-size: clamp(31px, 4.6vw, 60px);
   color: var(--color-light);
 }
 
@@ -205,4 +211,10 @@
     border-top: 1px solid var(--color-border);
     min-height: 360px;
   }
+}
+
+/* The fullbleed headline is written as two lines and breaks explicitly, so
+   the break point never drifts with the font metrics or the viewport. */
+.h1Break {
+  display: inline;
 }
