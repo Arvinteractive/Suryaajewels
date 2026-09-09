@@ -21,31 +21,31 @@ export const navLinks = [
 ]
 
 export const trustIcons = [
-  '/images/icon-handmade.jpg',
-  '/images/icon-hallmark.jpg',
-  '/images/icon-custom.jpg',
+  '/images/icon-handmade.webp',
+  '/images/icon-hallmark.webp',
+  '/images/icon-custom.webp',
 ]
 
 export const collectionArt = [
-  { shot: '/images/collection-necklaces.jpg', accent: '#C9A227' },
-  { shot: '/images/collection-bridal.jpg', accent: '#D9B872' },
-  { shot: '/images/collection-rings.jpg', accent: '#B8860B' },
-  { shot: '/images/collection-earrings.jpg', accent: '#E0C068' },
+  { shot: '/images/collection-necklaces.webp', accent: '#C9A227' },
+  { shot: '/images/collection-bridal.webp', accent: '#D9B872' },
+  { shot: '/images/collection-rings.webp', accent: '#B8860B' },
+  { shot: '/images/collection-earrings.webp', accent: '#E0C068' },
 ]
 
 export const processNumbers = ['01', '02', '03', '04', '05']
 
 export const galleryImages = [
-  '/images/gallery-01.jpg',
-  '/images/gallery-02.jpg',
-  '/images/gallery-03.jpg',
-  '/images/gallery-04.jpg',
-  '/images/gallery-05.jpg',
-  '/images/gallery-06.jpg',
-  '/images/gallery-07.jpg',
-  '/images/gallery-08.jpg',
-  '/images/gallery-09.jpg',
-  '/images/gallery-10.jpg',
+  '/images/gallery-01.webp',
+  '/images/gallery-02.webp',
+  '/images/gallery-03.webp',
+  '/images/gallery-04.webp',
+  '/images/gallery-05.webp',
+  '/images/gallery-06.webp',
+  '/images/gallery-07.webp',
+  '/images/gallery-08.webp',
+  '/images/gallery-09.webp',
+  '/images/gallery-10.webp',
 ]
 
 // Not localised: a phone number, a handle and a map query are the same string

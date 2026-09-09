@@ -18,6 +18,18 @@
   gap: 8px;
 }
 
+.brandRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.brandMark {
+  height: 40px;
+  width: auto;
+  flex-shrink: 0;
+}
+
 .wordmark {
   font-family: var(--font-display);
   font-size: 22px;
@@ -124,6 +136,24 @@
 .copyright {
   font-size: calc(12px * var(--lang-scale));
   color: var(--color-text-secondary);
+}
+
+.bottomRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
+
+.legalLinks .link {
+  font-size: calc(12px * var(--lang-scale));
 }
 
 @media (max-width: 860px) {

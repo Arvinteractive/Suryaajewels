@@ -8,9 +8,9 @@ export default {
   name: 'English',
 
   meta: {
-    title: 'Suryaa Jewels Craft | Bespoke 22K Gold Jewelry in Coimbatore',
+    title: 'Suryaa Jewels Craft | Best Jewellery Shop in Coimbatore',
     description:
-      'Hand-forged 22K gold jewelry from a third-generation Coimbatore atelier. Bespoke haarams, bridal trousseaus, and custom heirloom pieces by master goldsmiths.',
+      'Suryaa Jewels Craft — a trusted 22K gold jewellery shop in Coimbatore. Hand-forged bridal sets, haarams, rings & custom heirlooms by master goldsmiths.',
   },
 
   nav: {
@@ -203,5 +203,7 @@ export default {
     visitUs: 'Visit Us',
     quote: 'The only difference between a commodity and an heirloom is the story you tell.',
     copyright: '© 2026 Suryaa Jewels Craft. All rights reserved.',
+    privacyPolicy: 'Privacy Policy',
+    terms: 'Terms & Conditions',
   },
 }

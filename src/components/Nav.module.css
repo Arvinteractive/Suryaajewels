@@ -15,9 +15,21 @@
 }
 
 .brand {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: clamp(6px, 0.9vw, 9px);
   text-decoration: none;
   color: inherit;
+}
+
+.brandMark {
+  height: clamp(34px, 4vw, 46px);
+  width: auto;
+  flex-shrink: 0;
+}
+
+.brandText {
+  display: block;
 }
 
 .wordmark {

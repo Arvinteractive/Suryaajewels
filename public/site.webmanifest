@@ -1,0 +1,15 @@
+{
+  "name": "Suryaa Jewels Craft",
+  "short_name": "Suryaa Jewels",
+  "description": "Bespoke 22K gold jewelry from a third-generation Coimbatore atelier.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#E9ECE5",
+  "theme_color": "#16180F",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

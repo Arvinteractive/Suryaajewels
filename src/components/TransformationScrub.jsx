@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './TransformationScrub.module.css'
 import { useT } from '../i18n/context'
-import goldBefore from '../assets/gold-before.png'
-import goldAfter from '../assets/gold-after.png'
+import goldBefore from '../assets/gold-before.webp'
+import goldAfter from '../assets/gold-after.webp'
 
 // Parked just inside the left edge: far enough in that the knob sits wholly
 // within the frame rather than straddling the border — it is the one control
@@ -12,7 +12,7 @@ import goldAfter from '../assets/gold-after.png'
 //
 // Bounded on both sides, so do not raise it blind. The knob needs ~5.5% to
 // clear the frame at the narrowest phone width, and the bracelet's leftmost
-// pixel sits at 9.4% of gold-after.png — past that, the piece starts showing
+// pixel sits at 9.4% of gold-after.webp — past that, the piece starts showing
 // before anyone has touched anything. Re-measure both if the art changes.
 const INITIAL_REVEAL = 0.08
 

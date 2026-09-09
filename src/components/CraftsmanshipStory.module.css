@@ -1,0 +1,128 @@
+.section {
+  padding: clamp(64px, 8vw, 120px) clamp(24px, 5vw, 64px);
+}
+
+.mask {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  min-height: 420px;
+  border: 1px solid var(--color-border);
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mask.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image {
+  position: absolute;
+  top: -5%;
+  left: 0;
+  width: 100%;
+  height: 110%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(22, 24, 15, 0.05) 0%,
+    rgba(22, 24, 15, 0.25) 55%,
+    rgba(22, 24, 15, 0.88) 100%
+  );
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: clamp(28px, 4vw, 56px);
+}
+
+.eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244, 245, 241, 0.85);
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(32px, 4.6vw, 58px);
+  line-height: 1.1;
+  margin: 0;
+  max-width: 14ch;
+  color: var(--color-light);
+}
+
+.beats {
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px clamp(16px, 2vw, 28px);
+}
+
+.beat {
+  font-family: var(--font-display);
+  font-size: clamp(15px, 1.5vw, 18px);
+  letter-spacing: 0.01em;
+  color: var(--color-light);
+}
+
+.beat:not(:last-child)::after {
+  content: '·';
+  margin-left: clamp(16px, 2vw, 28px);
+  color: rgba(244, 245, 241, 0.5);
+}
+
+.closing {
+  margin: 8px 0 0;
+  max-width: 44ch;
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(244, 245, 241, 0.75);
+}
+
+@media (max-width: 640px) {
+  .mask {
+    aspect-ratio: 4 / 5;
+    min-height: 0;
+  }
+
+  .heading {
+    max-width: none;
+    font-size: clamp(28px, 7vw, 38px);
+  }
+
+  .beats {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .beat:not(:last-child)::after {
+    content: '';
+    margin: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mask {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

@@ -1,6 +1,7 @@
 import styles from './Footer.module.css'
 import { navLinks, trustIcons, contact } from '../config'
 import { useT } from '../i18n/context'
+import logoMark from '../assets/suryaa-jewels-mark.webp'
 
 function InstagramIcon(props) {
   return (
@@ -19,8 +20,13 @@ export default function Footer() {
     <footer className={styles.footer}>
       <div className={styles.top}>
         <div className={styles.brandCol}>
-          <div className={styles.wordmark}>SURYAA</div>
-          <div className={styles.microLabel}>{t.footer.microLabel}</div>
+          <div className={styles.brandRow}>
+            <img src={logoMark} alt="S" className={styles.brandMark} width="222" height="300" />
+            <div>
+              <div className={styles.wordmark}>URYAA</div>
+              <div className={styles.microLabel}>{t.footer.microLabel}</div>
+            </div>
+          </div>
           <p className={styles.tagline}>{t.footer.tagline}</p>
         </div>
 
@@ -76,7 +82,17 @@ export default function Footer() {
 
       <div className={styles.bottom}>
         <p className={styles.quote}>&ldquo;{t.footer.quote}&rdquo;</p>
-        <div className={styles.copyright}>{t.footer.copyright}</div>
+        <div className={styles.bottomRow}>
+          <div className={styles.copyright}>{t.footer.copyright}</div>
+          <div className={styles.legalLinks}>
+            <a href="/privacy/" className={styles.link}>
+              {t.footer.privacyPolicy}
+            </a>
+            <a href="/terms/" className={styles.link}>
+              {t.footer.terms}
+            </a>
+          </div>
+        </div>
       </div>
     </footer>
   )

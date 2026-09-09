@@ -8,7 +8,7 @@ function HeroFullbleed() {
     <section
       id="craft"
       className={styles.fullbleed}
-      style={{ backgroundImage: "url('/images/hero-fullbleed.jpg')" }}
+      style={{ backgroundImage: "url('/images/hero-fullbleed.webp')" }}
     >
       <div className={styles.fullbleedScrim} />
       <div className={styles.fullbleedContent}>
@@ -50,7 +50,7 @@ function HeroSplit() {
         </div>
         <div className={styles.thumbRow}>
           <img
-            src="/images/hero-thumb-1.jpg"
+            src="/images/hero-thumb-1.webp"
             alt={t.hero.thumbAlt[0]}
             className={styles.thumb}
             width={72}
@@ -58,7 +58,7 @@ function HeroSplit() {
             decoding="async"
           />
           <img
-            src="/images/hero-thumb-2.jpg"
+            src="/images/hero-thumb-2.webp"
             alt={t.hero.thumbAlt[1]}
             className={styles.thumb}
             width={72}
@@ -69,7 +69,7 @@ function HeroSplit() {
       </div>
       <div className={styles.splitImage}>
         <img
-          src="/images/hero-split-main.jpg"
+          src="/images/hero-split-main.webp"
           alt={t.hero.mainAlt}
           width={1792}
           height={2400}

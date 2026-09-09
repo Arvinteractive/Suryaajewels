@@ -28,7 +28,7 @@ export default function Visit() {
           <div>{contact.phone}</div>
           <div>{t.visit.instagram}</div>
         </Reveal>
-        <a href="#visit" className={styles.cta}>
+        <a href={`tel:${contact.phone.replace(/[^+\d]/g, '')}`} className={styles.cta}>
           {t.visit.cta}
         </a>
       </div>

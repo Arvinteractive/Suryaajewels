@@ -7,7 +7,7 @@ import { LITE_MOTION_QUERY } from '../lib/breakpoints'
 import styles from './Heritage.module.css'
 import Reveal from './Reveal'
 import ReadingHighlight from './ReadingHighlight'
-import foregroundOverlay from '../assets/foreground-overlay.png'
+import foregroundOverlay from '../assets/foreground-overlay.webp'
 import { useT } from '../i18n/context'
 
 export default function Heritage() {
@@ -42,7 +42,7 @@ export default function Heritage() {
         <div ref={stageRef} className={styles.stage}>
           <img
             className={styles.baseImg}
-            src="/images/about-heritage.jpg"
+            src="/images/about-heritage.webp"
             alt={t.heritage.imageAlt}
             width={1792}
             height={2400}

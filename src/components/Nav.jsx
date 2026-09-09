@@ -6,6 +6,7 @@ import { useMediaQuery } from '../lib/useMediaQuery'
 import { MOBILE_QUERY } from '../lib/breakpoints'
 import LangToggle from './LangToggle'
 import { useT } from '../i18n/context'
+import logoMark from '../assets/suryaa-jewels-mark.webp'
 
 export default function Nav() {
   const t = useT()
@@ -82,8 +83,11 @@ export default function Nav() {
     <>
       <nav className={barClass}>
         <a href="#craft" className={styles.brand} onClick={closeMenu}>
-          <span className={styles.wordmark}>SURYAA</span>
-          <span className={styles.microLabel}>{t.nav.microLabel}</span>
+          <img src={logoMark} alt="S" className={styles.brandMark} width="222" height="300" />
+          <span className={styles.brandText}>
+            <span className={styles.wordmark}>URYAA</span>
+            <span className={styles.microLabel}>{t.nav.microLabel}</span>
+          </span>
         </a>
 
         <div className={styles.links}>
