@@ -178,6 +178,19 @@ export default {
     ],
   },
 
+  dollars: {
+    eyebrow: 'The Dollar Case',
+    heading: 'Twenty-three temple dollars.',
+    body: 'In Tamil a pendant is a dollar, and a dollar is where a goldsmith has nowhere to hide — the deity, the arch around it and the piercing behind it are all cut by hand, one at a time.',
+    prev: 'Previous dollar',
+    next: 'Next dollar',
+    counter: (i, n) => `${i} of ${n}`,
+    hint: 'Drag the rail',
+    pick: (i) => `Show dollar ${i}`,
+    alt: (i) =>
+      `Hand-forged 22K gold temple dollar pendant ${i} of 23, Suryaa Jewels Craft Coimbatore`,
+  },
+
   visit: {
     eyebrow: 'The Studio',
     heading: 'Witness the Craft',

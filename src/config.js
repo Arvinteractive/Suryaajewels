@@ -48,6 +48,37 @@ export const galleryImages = [
   '/images/gallery-10.webp',
 ]
 
+// The pendant cut-outs, written by `npm run cutout-dollars` from the originals
+// in src/assets/dollars/. Each one's intrinsic size is recorded because no two
+// are the same shape and the rail has to reserve the right slot before the
+// image lands — twenty-three pendants reflowing as they decode is exactly what
+// would give the display away as a row of boxes.
+export const dollarImages = [
+  { src: '/images/dollars/dollar-01.webp', width: 574, height: 1100 },
+  { src: '/images/dollars/dollar-02.webp', width: 549, height: 1100 },
+  { src: '/images/dollars/dollar-03.webp', width: 771, height: 1100 },
+  { src: '/images/dollars/dollar-04.webp', width: 654, height: 1100 },
+  { src: '/images/dollars/dollar-05.webp', width: 703, height: 1100 },
+  { src: '/images/dollars/dollar-06.webp', width: 695, height: 1100 },
+  { src: '/images/dollars/dollar-07.webp', width: 632, height: 1100 },
+  { src: '/images/dollars/dollar-08.webp', width: 791, height: 1100 },
+  { src: '/images/dollars/dollar-09.webp', width: 662, height: 1100 },
+  { src: '/images/dollars/dollar-10.webp', width: 644, height: 1100 },
+  { src: '/images/dollars/dollar-11.webp', width: 569, height: 1100 },
+  { src: '/images/dollars/dollar-12.webp', width: 685, height: 1100 },
+  { src: '/images/dollars/dollar-13.webp', width: 624, height: 1100 },
+  { src: '/images/dollars/dollar-14.webp', width: 550, height: 1100 },
+  { src: '/images/dollars/dollar-15.webp', width: 297, height: 1100 },
+  { src: '/images/dollars/dollar-16.webp', width: 543, height: 1100 },
+  { src: '/images/dollars/dollar-17.webp', width: 499, height: 1100 },
+  { src: '/images/dollars/dollar-18.webp', width: 571, height: 1100 },
+  { src: '/images/dollars/dollar-19.webp', width: 707, height: 1100 },
+  { src: '/images/dollars/dollar-20.webp', width: 357, height: 1100 },
+  { src: '/images/dollars/dollar-21.webp', width: 553, height: 1100 },
+  { src: '/images/dollars/dollar-22.webp', width: 612, height: 1100 },
+  { src: '/images/dollars/dollar-23.webp', width: 720, height: 1100 },
+]
+
 // Not localised: a phone number, a handle and a map query are the same string
 // in every language.
 export const contact = {

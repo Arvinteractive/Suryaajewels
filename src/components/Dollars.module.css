@@ -1,0 +1,271 @@
+/* ---------------------------------------------------------------------------
+   The dollar case — a rail of pendants, hung.
+
+   This is the one black section on a site that is otherwise sage and bone, and
+   that is the point: the pieces are cut out of their backdrop and lit against
+   nothing, so the only thing on screen with any colour in it is the gold.
+   --------------------------------------------------------------------------- */
+
+.section {
+  position: relative;
+  background: #000;
+  color: var(--color-light);
+  padding: clamp(64px, 8vw, 110px) 0 clamp(48px, 6vw, 72px);
+  overflow: hidden;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 420px);
+  gap: clamp(24px, 5vw, 72px);
+  align-items: end;
+  max-width: 1280px;
+  margin: 0 auto clamp(36px, 5vw, 64px);
+  padding: 0 clamp(24px, 5vw, 64px);
+}
+
+.eyebrow {
+  margin: 0 0 clamp(14px, 1.8vw, 20px);
+  font-size: calc(11px * var(--lang-scale));
+  letter-spacing: calc(0.24em * var(--lang-tracking));
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+}
+
+.heading {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: calc(clamp(30px, 3.6vw, 48px) * var(--lang-scale));
+  line-height: calc(1.1 * var(--lang-leading));
+}
+
+.body {
+  margin: 0;
+  max-width: 46ch;
+  font-size: calc(clamp(14px, 1.1vw, 16px) * var(--lang-scale));
+  line-height: calc(1.72 * var(--lang-leading));
+  color: rgba(244, 245, 241, 0.6);
+}
+
+/* Reserves the rail's height from CSS alone, so nothing below shifts while
+   the animation chunk is still on its way down. This is the only thing that
+   sizes the pendants — the header and the section padding above and below it
+   are unaffected by how tall it gets. */
+.well {
+  position: relative;
+  height: clamp(560px, 78vh, 820px);
+}
+
+/* The line everything hangs from. It draws itself across as the section
+   arrives, which is what sells the pieces as being hung rather than laid out. */
+.rail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(217, 190, 131, 0.55) 14%,
+    rgba(217, 190, 131, 0.55) 86%,
+    transparent 100%
+  );
+}
+
+.halo {
+  position: absolute;
+  top: -6%;
+  left: 50%;
+  width: min(860px, 94vw);
+  /* Sized off the well rather than the viewport, so the glow keeps pace when
+     the rail gets taller instead of ending part way down the pieces. */
+  height: 82%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(217, 190, 131, 0.13), transparent 68%);
+  pointer-events: none;
+}
+
+/* The stage begins at the rail, so a hanger's top edge is the point it is
+   hanging from and `transform-origin: top center` needs no correction. */
+.stage {
+  --slot: 220px;
+  --hang: 420px;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 88px;
+  /* Horizontal gestures belong to the rail, vertical ones to the page. */
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.stage:active {
+  cursor: grabbing;
+}
+
+.stage:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 6px;
+}
+
+.hanger {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: var(--slot);
+  margin-left: calc(var(--slot) / -2);
+  will-change: transform;
+}
+
+/* Idle life, kept separate from the drag-driven swing below it so the two
+   rotations compose instead of fighting over one transform. */
+.sway {
+  transform-origin: top center;
+  animation: dollarSway 7s ease-in-out infinite;
+}
+
+@keyframes dollarSway {
+  0%,
+  100% {
+    transform: rotate(-0.55deg);
+  }
+  50% {
+    transform: rotate(0.55deg);
+  }
+}
+
+.pendulum {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.thread {
+  width: 1px;
+  background: linear-gradient(180deg, rgba(217, 190, 131, 0.55), rgba(217, 190, 131, 0.18));
+}
+
+.piece {
+  width: 100%;
+  height: var(--hang);
+  object-fit: contain;
+  object-position: top center;
+  transform-origin: top center;
+  cursor: pointer;
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
+/* --- controls ------------------------------------------------------------ */
+
+.controls {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(18px, 3vw, 32px);
+  height: 88px;
+  padding: 0 clamp(20px, 4vw, 48px);
+}
+
+.arrow {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(217, 190, 131, 0.3);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--color-gold-light);
+  transition: background 220ms ease, color 220ms ease, opacity 220ms ease;
+}
+
+.arrow:hover:not(:disabled) {
+  background: var(--color-gold-light);
+  color: #000;
+}
+
+.arrow:focus-visible {
+  outline: 2px solid var(--color-gold-light);
+  outline-offset: 3px;
+}
+
+.arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: min(300px, 46vw);
+}
+
+.counter {
+  font-family: var(--font-display);
+  font-size: calc(13px * var(--lang-scale));
+  letter-spacing: calc(0.18em * var(--lang-tracking));
+  color: var(--color-light);
+}
+
+.track {
+  display: block;
+  width: 100%;
+  height: 1px;
+  background: rgba(217, 190, 131, 0.16);
+}
+
+.trackFill {
+  display: block;
+  height: 100%;
+  background: var(--color-gold-light);
+  transform-origin: left center;
+}
+
+.hint {
+  font-size: calc(10px * var(--lang-scale));
+  letter-spacing: calc(0.2em * var(--lang-tracking));
+  text-transform: uppercase;
+  color: rgba(244, 245, 241, 0.34);
+}
+
+@media (max-width: 900px) {
+  .header {
+    grid-template-columns: 1fr;
+    gap: clamp(18px, 4vw, 28px);
+    align-items: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .well {
+    height: clamp(500px, 74vh, 680px);
+  }
+
+  .controls {
+    gap: 14px;
+  }
+
+  .hint {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sway {
+    animation: none;
+  }
+}

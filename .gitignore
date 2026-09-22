@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Working files for the dollar rail. `npm run cutout-dollars` reads these and
+# writes the cut-outs to public/images/dollars/, which ARE committed — these
+# are the ~37MB of originals behind them and would sit in history forever.
+src/assets/dollars/
+src/assets/dollars-new/

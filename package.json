@@ -8,7 +8,9 @@
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "optimize-images": "node scripts/optimize-images.mjs"
+    "optimize-images": "node scripts/optimize-images.mjs",
+    "cutout-dollars": "node scripts/cutout-dollars.mjs",
+    "verify-pendulum": "node scripts/verify-pendulum.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

@@ -8,6 +8,7 @@ import TransformationScrub from './components/TransformationScrub'
 import Heritage from './components/Heritage'
 import Testimonials from './components/Testimonials'
 import Gallery from './components/Gallery'
+import Dollars from './components/Dollars'
 import Visit from './components/Visit'
 import Footer from './components/Footer'
 import { siteConfig } from './config'
@@ -21,6 +22,7 @@ function App() {
       <Nav />
       <Hero variant={siteConfig.heroVariant} />
       <TrustStrip />
+      <Dollars />
       <Manifesto />
       <CaseFileShowcase />
       <Process />
