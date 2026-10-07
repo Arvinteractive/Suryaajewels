@@ -161,6 +161,20 @@ export default {
 
   gallery: {
     heading: 'From the Workshop',
+    eyebrow: '05 / THE WORKSHOP',
+    hint: 'Drag to explore. Let go to settle.',
+    study: i => `WORKSHOP / ${String(i).padStart(3, '0')}`,
+    titles: ['The temple haaram.', 'A personal signature.', 'Traditional hoops.', 'Light in every detail.', 'The bridal necklace.', 'A finishing touch.', 'Grace, by hand.', 'Strength in simplicity.', 'A quiet statement.', 'Movement in gold.'],
+    carousel: {
+      instructions: 'Drag horizontally to explore. Use Left and Right arrow keys, Home, or End to choose a photograph. Autoplay pauses while you interact.',
+      viewport: 'Workshop photographs', choose: 'Choose a photograph',
+      play: 'Play autoplay', pause: 'Pause autoplay', playShort: 'Play', pauseShort: 'Pause',
+      atYourPace: 'At your own pace', interacting: 'Paused while you interact', reduced: 'Reduced motion', unavailable: 'Autoplay unavailable with reduced motion',
+      interval: seconds => `A new view every ${seconds}s`, position: (i, n) => `Photograph ${i} of ${n}`,
+      retry: 'Try again', loadingTitle: 'A little anticipation.', loadingBody: 'The photographs are on their way.',
+      emptyTitle: 'A fresh perspective awaits.', emptyBody: 'There are no photographs to explore just yet.',
+      errorTitle: 'Let’s try another angle.', errorBody: 'The photographs couldn’t be loaded. Please try again.',
+    },
     prev: 'Previous images',
     next: 'Next images',
     slide: (i, n) => `Go to slide ${i} of ${n}`,

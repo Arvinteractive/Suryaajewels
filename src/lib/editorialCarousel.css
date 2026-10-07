@@ -1,0 +1,46 @@
+c-carousel { display: block; position: relative; min-inline-size: 0; container: editorial-carousel / inline-size; --carousel-slide-size: 82%; --carousel-gap: 24px; --carousel-radius: 28px; --carousel-accent: var(--color-gold, #aa6047); --carousel-height: 440px; }
+c-carousel [hidden] { display: none !important; }
+c-carousel .carousel-sr-only, c-carousel .sr-only { position: absolute; inline-size: 1px; block-size: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+c-carousel .carousel-viewport { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: var(--color-border, #d5d9cb) transparent; border-radius: var(--carousel-radius); overscroll-behavior-x: contain; touch-action: auto; }
+c-carousel .carousel-track { display: flex; gap: var(--carousel-gap); align-items: stretch; }
+c-carousel .carousel-track::after { content: ''; flex: 0 0 max(0px, calc(100% - var(--carousel-slide-size) - var(--carousel-gap))); }
+c-carousel .slide { flex: 0 0 var(--carousel-slide-size); min-inline-size: 0; border-radius: var(--carousel-radius); scroll-snap-align: start; scroll-snap-stop: always; overflow: hidden; user-select: none; -webkit-user-select: none; }
+c-carousel[data-enhanced] .carousel-viewport { overflow: hidden; scroll-snap-type: none; touch-action: pan-y pinch-zoom; }
+c-carousel[data-state='single'] { --carousel-slide-size: 100%; }
+c-carousel[data-enhanced][data-state='ready'] .carousel-viewport { cursor: grab; }
+c-carousel[data-dragging] .carousel-viewport { cursor: grabbing; }
+c-carousel[data-dragging] .carousel-track, c-carousel[data-animating] .carousel-track { will-change: transform; }
+c-carousel .carousel-controls { display: none; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding-block-start: 24px; }
+c-carousel[data-enhanced] .carousel-controls { display: flex; }
+c-carousel .position-group, c-carousel .movement-group { display: flex; align-items: center; gap: 18px; min-inline-size: 0; }
+c-carousel .movement-group { gap: 10px; margin-inline-start: auto; }
+c-carousel .slide-status { display: flex; align-items: center; gap: 9px; min-inline-size: 64px; font-size: 11px; font-variant-numeric: tabular-nums; }
+c-carousel .status-divider, c-carousel .status-total { color: var(--color-text-secondary, #627165); }
+c-carousel .carousel-dots { display: flex; align-items: center; max-inline-size: 100%; }
+c-carousel button { color: inherit; font: inherit; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+c-carousel .dot { display: grid; place-items: center; flex: 0 0 44px; inline-size: 44px; block-size: 44px; padding: 0; border: 0; background: transparent; border-radius: 50%; }
+c-carousel .dot::before { content: ''; inline-size: 6px; block-size: 6px; border-radius: 50%; background: var(--color-text-secondary, #627165); opacity: .35; transition: transform 160ms ease, opacity 160ms ease; }
+c-carousel .dot[aria-current='true']::before { background: var(--carousel-accent); opacity: 1; transform: scale(1.6); }
+c-carousel .arrow { display: grid; place-items: center; inline-size: 48px; block-size: 48px; padding: 0; border: 1px solid var(--color-border, #d5d9cb); border-radius: 50%; background: transparent; }
+c-carousel .arrow svg { inline-size: 19px; block-size: 19px; }
+c-carousel:dir(rtl) .arrow svg { transform: rotate(180deg); }
+c-carousel .autoplay-button { display: flex; gap: 8px; align-items: center; justify-content: center; min-inline-size: 90px; min-block-size: 44px; padding: 8px 12px; background: transparent; border: 0; border-radius: 99px; font-size: 12px; }
+c-carousel .autoplay-button svg { inline-size: 13px; block-size: 13px; flex-shrink: 0; }
+c-carousel .play-caption { color: var(--color-text-secondary, #627165); font-size: 10px; max-inline-size: 150px; line-height: 1.5; margin-inline-end: 10px; }
+c-carousel [aria-disabled='true'] { opacity: .35; cursor: default; }
+c-carousel button:focus-visible, c-carousel [tabindex]:focus-visible { outline: 3px solid var(--carousel-accent); outline-offset: 4px; }
+c-carousel .carousel-state { display: grid; align-content: center; justify-items: center; gap: 15px; min-block-size: var(--carousel-height); padding: 32px; border-radius: var(--carousel-radius); border: 1px solid var(--color-border, #d5d9cb); text-align: center; background: var(--color-light, #f7f5ed); }
+c-carousel .carousel-state h2 { font: 400 36px/1.2 var(--font-display, Georgia); margin: 0; overflow-wrap: anywhere; }
+c-carousel .carousel-state p { margin: 0; max-inline-size: 34ch; font-size: 14px; line-height: 1.6; }
+c-carousel .state-mark { font: italic 44px Georgia; color: var(--carousel-accent); }
+c-carousel .state-retry { min-block-size: 44px; padding: 10px 20px; border: 1px solid var(--color-border, #d5d9cb); background: transparent; border-radius: 99px; }
+@container editorial-carousel (max-width: 1000px) { c-carousel .play-caption { display: none; } }
+@container editorial-carousel (max-width: 800px) { c-carousel .carousel-dots { display: grid; grid-template-columns: repeat(5, 44px); } c-carousel .position-group { flex-direction: column; align-items: flex-start; gap: 4px; } }
+@container editorial-carousel (max-width: 500px) { c-carousel .position-group { inline-size: 100%; } c-carousel .carousel-controls { gap: 8px; } }
+@supports not (container-type: inline-size) {
+  @media (max-width: 1128px) { c-carousel .play-caption { display: none; } }
+  @media (max-width: 928px) { c-carousel .carousel-dots { display: grid; grid-template-columns: repeat(5, 44px); } c-carousel .position-group { flex-direction: column; align-items: flex-start; gap: 4px; } }
+  @media (max-width: 628px) { c-carousel .position-group { inline-size: 100%; } }
+}
+@media (prefers-reduced-motion: reduce) { c-carousel *, c-carousel *::before, c-carousel *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+@media (forced-colors: active) { c-carousel .slide { border: 1px solid CanvasText; } c-carousel .dot::before { background: ButtonText; } c-carousel .dot[aria-current='true']::before { background: Highlight; } }

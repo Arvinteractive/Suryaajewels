@@ -1,126 +1,103 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import styles from './Gallery.module.css'
+import '../lib/editorialCarousel'
 import { galleryImages } from '../config'
 import { useT } from '../i18n/context'
+import { ScrollSmoother, ScrollTrigger } from '../lib/gsap'
 
 export default function Gallery() {
   const t = useT()
-  const rowRef = useRef(null)
-  const [pages, setPages] = useState(1)
-  const [active, setActive] = useState(0)
+  const carouselRef = useRef(null)
+  const sectionRef = useRef(null)
 
-  // Pages are derived from the scroller's own geometry rather than a hard-coded
-  // count, because how many cards fit changes at every breakpoint.
-  const measure = useCallback(() => {
-    const el = rowRef.current
-    if (!el || el.clientWidth === 0) return
-
-    // One dot per screenful, not per photo — ten dots for ten images reads as
-    // noise and says nothing useful about where you are.
-    const count = Math.max(1, Math.round(el.scrollWidth / el.clientWidth))
-    const maxScroll = el.scrollWidth - el.clientWidth
-
-    setPages(count)
-    setActive(
-      maxScroll > 0 && count > 1 ? Math.round((el.scrollLeft / maxScroll) * (count - 1)) : 0,
-    )
+  // Resolve the fragment after fonts and the scrolling layer settle. Stop
+  // repositioning as soon as the visitor starts interacting with the page.
+  useEffect(() => {
+    if (window.location.hash !== '#workshop') return
+    let cancelled = false
+    let frame = 0
+    let followupFrame = 0
+    const align = () => {
+      if (cancelled) return
+      cancelAnimationFrame(frame)
+      cancelAnimationFrame(followupFrame)
+      frame = requestAnimationFrame(() => {
+        followupFrame = requestAnimationFrame(() => {
+          const section = sectionRef.current
+          if (cancelled || !section || window.location.hash !== '#workshop') return
+          ScrollTrigger.refresh()
+          const smoother = ScrollSmoother.get()
+          if (smoother) smoother.scrollTo(section, false, 'top 80px')
+          else section.scrollIntoView({ behavior: 'auto', block: 'start' })
+        })
+      })
+    }
+    const stop = () => { cancelled = true }
+    ;(document.fonts?.ready ?? Promise.resolve()).then(align)
+    window.addEventListener('load', align, { once: true })
+    window.addEventListener('wheel', stop, { passive: true, once: true })
+    window.addEventListener('pointerdown', stop, { passive: true, once: true })
+    window.addEventListener('keydown', stop, { once: true })
+    return () => {
+      cancelled = true
+      cancelAnimationFrame(frame)
+      cancelAnimationFrame(followupFrame)
+      window.removeEventListener('load', align)
+      window.removeEventListener('wheel', stop)
+      window.removeEventListener('pointerdown', stop)
+      window.removeEventListener('keydown', stop)
+    }
   }, [])
 
-  useEffect(() => {
-    const el = rowRef.current
-    if (!el) return
-
-    measure()
-
-    let queued = false
-    const onScroll = () => {
-      if (queued) return
-      queued = true
-      requestAnimationFrame(() => {
-        queued = false
-        measure()
-      })
+  // React owns the authored photographs; the custom element owns its motion
+  // and controls. Labels are refreshed after translated children commit.
+  useLayoutEffect(() => {
+    const carousel = carouselRef.current
+    if (!carousel) return
+    carousel.labels = {
+      ...t.gallery.carousel,
+      previous: t.gallery.prev,
+      next: t.gallery.next,
+      slide: t.gallery.slide,
     }
-
-    el.addEventListener('scroll', onScroll, { passive: true })
-    const observer = new ResizeObserver(measure)
-    observer.observe(el)
-
-    return () => {
-      el.removeEventListener('scroll', onScroll)
-      observer.disconnect()
-    }
-  }, [measure])
-
-  // Both the arrows and the dots move in whole pages, so the two controls can
-  // never disagree about which slide you are on.
-  const goToPage = useCallback(
-    (index) => {
-      const el = rowRef.current
-      if (!el) return
-      const target = Math.min(Math.max(index, 0), pages - 1)
-      const maxScroll = el.scrollWidth - el.clientWidth
-      el.scrollTo({
-        left: pages > 1 ? (maxScroll * target) / (pages - 1) : 0,
-        behavior: 'smooth',
-      })
-    },
-    [pages],
-  )
+  }, [t.gallery])
 
   return (
-    <section className={styles.section}>
-      <h2 className={styles.heading}>{t.gallery.heading}</h2>
-
-      <div ref={rowRef} className={`${styles.row} scrollbar-hide`}>
-        {galleryImages.map((src, i) => (
-          <div className={styles.card} key={src}>
-            <img
-              src={src}
-              alt={t.gallery.alts[i]}
-              width={1792}
-              height={2400}
-              loading="lazy"
-              decoding="async"
-            />
+    <section ref={sectionRef} className={styles.section} id="workshop" aria-labelledby="workshop-heading">
+      <div className={styles.inner}>
+        <header className={styles.intro}>
+          <h2 className={styles.heading} id="workshop-heading">{t.gallery.heading}</h2>
+        </header>
+        <c-carousel
+          ref={carouselRef}
+          className={styles.carousel}
+          aria-label={t.gallery.heading}
+          interval="5000"
+        >
+          <p className="carousel-sr-only" data-instructions="">{t.gallery.carousel.instructions}</p>
+          <div className="carousel-viewport" tabIndex={0} role="group" aria-label={t.gallery.carousel.viewport}>
+            <div className="carousel-track">
+              {galleryImages.map((src, index) => (
+                <article className={`slide ${styles.card}`} data-slide="" key={src}>
+                  <div className={`slide-copy ${styles.copy}`}>
+                    <h3 className={styles.title}>{t.gallery.titles[index]}</h3>
+                  </div>
+                  <figure className={`workshop-photo ${styles.photo}`}>
+                    <img
+                      src={src}
+                      alt={t.gallery.alts[index]}
+                      width={1792}
+                      height={2400}
+                      loading={index < 2 ? 'eager' : 'lazy'}
+                      decoding="async"
+                      draggable={false}
+                    />
+                  </figure>
+                </article>
+              ))}
+            </div>
           </div>
-        ))}
-      </div>
-
-      <div className={styles.controls}>
-        <button
-          type="button"
-          className={styles.arrow}
-          aria-label={t.gallery.prev}
-          onClick={() => goToPage(active - 1)}
-          disabled={active === 0}
-        >
-          <ChevronLeft size={20} strokeWidth={1.5} aria-hidden="true" />
-        </button>
-
-        <div className={styles.dots}>
-          {Array.from({ length: pages }, (_, i) => (
-            <button
-              key={i}
-              type="button"
-              className={`${styles.dot} ${i === active ? styles.dotActive : ''}`}
-              aria-label={t.gallery.slide(i + 1, pages)}
-              aria-current={i === active}
-              onClick={() => goToPage(i)}
-            />
-          ))}
-        </div>
-
-        <button
-          type="button"
-          className={styles.arrow}
-          aria-label={t.gallery.next}
-          onClick={() => goToPage(active + 1)}
-          disabled={active >= pages - 1}
-        >
-          <ChevronRight size={20} strokeWidth={1.5} aria-hidden="true" />
-        </button>
+        </c-carousel>
       </div>
     </section>
   )
